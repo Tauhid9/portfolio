@@ -19,6 +19,10 @@ const SCREEN_METADATA: Record<string, { eyebrow: string; label: string }> = {
     eyebrow: 'Access',
     label: 'Secure Login Screen',
   },
+  'home-clean.png': {
+    eyebrow: 'Identity',
+    label: 'Studio Landing Screen',
+  },
   'projects-clean.png': {
     eyebrow: 'Portfolio',
     label: 'Projects Archive',

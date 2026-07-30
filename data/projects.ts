@@ -19,12 +19,13 @@ export const projects: Project[] = [
     title: "A. M. & Associates - Architecture Studio Website",
     description: "Architecture studio website with project archive, process storytelling, team profiles, and contact experience",
     longDescription: "A polished architecture and design studio website built for A. M. & Associates. The experience presents selected work through a visual project archive, dedicated process storytelling, contributor and team profiles, and a structured contact page with studio details and map integration. The website is built with Next.js, Supabase database, Cloudinary and Tailwind CSS, ensuring a responsive and visually appealing experience across devices.",
-    image: "/projects/am-associates-top/projects-clean.svg",
+    image: "/projects/am-associates-top/home-clean.png",
     images: [
-      "/projects/am-associates-top/projects-clean.svg",
-      "/projects/am-associates-top/about-clean.svg",
-      "/projects/am-associates-top/process-clean.svg",
-      "/projects/am-associates-top/contact-clean.svg"
+      "/projects/am-associates-top/home-clean.png",
+      "/projects/am-associates-top/projects-clean.png",
+      "/projects/am-associates-top/process-clean.png",
+      "/projects/am-associates-top/about-clean.png",
+      "/projects/am-associates-top/contact-clean.png"
     ],
     technologies: ["Next.js", "Tailwind CSS","Supabase database", "Cloudinary", "Google Maps"],
     live: "https://www.am-associate.com/",
