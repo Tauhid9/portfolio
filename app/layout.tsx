@@ -7,15 +7,15 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Tauhid Hasan Chowdhury | Full-Stack Engineer',
-  description: 'Full-stack engineer based in Dhaka. I build production-ready web applications with Next.js, React, and Node.js. 4+ years delivering systems that scale.',
+  title: 'Tauhid Hasan Chowdhury | Full-Stack Software Engineer',
+  description: 'Full-Stack Developer specializing in Next.js, React, Node.js & Python. Available for hire. Building scalable web applications and APIs.',
   metadataBase: new URL('https://tauhid-portfolio.vercel.app'),
   alternates: {
     canonical: 'https://tauhid-portfolio.vercel.app',
   },
   openGraph: {
-    title: 'Tauhid Hasan Chowdhury | Full-Stack Engineer',
-    description: 'Full-stack engineer. Building production-ready web applications with Next.js, React, and Node.js.',
+    title: 'Tauhid Hasan Chowdhury | Full-Stack Software Engineer',
+    description: 'Full-Stack Developer specializing in Next.js, React, Node.js & Python. Available for hire.',
     url: 'https://tauhid-portfolio.vercel.app',
     siteName: 'Tauhid Hasan Chowdhury',
     type: 'website',
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tauhid Hasan Chowdhury | Full-Stack Engineer',
-    description: 'Full-stack engineer building production applications. Next.js, React, Node.js.',
+    title: 'Tauhid Hasan Chowdhury | Full-Stack Software Engineer',
+    description: 'Full-Stack Developer specializing in Next.js, React, Node.js & Python.',
     images: ['https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tauhid-VHHD493h1OfKcG0Gx2B7VzyvmOjBAa.jpg'],
     creator: '@tauhid_hasan',
   },

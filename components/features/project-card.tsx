@@ -1,99 +1,165 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react'
+import { ExternalLink, Github, Maximize2, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProjectDetailsModal } from '@/components/modals/project-details-modal'
+import { motion } from 'framer-motion'
 import type { Project } from '@/data/projects'
 
 interface ProjectCardProps {
   project: Project
+  showCodeButton?: boolean
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const images = project.images || [project.image]
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const handleMouseEnter = () => {
+    if (images.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length)
+      }, 2000)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [])
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start py-8 border-b border-border/50 last:border-b-0">
-        {/* Image */}
-        <div className="aspect-video bg-foreground/5 rounded-lg overflow-hidden order-2 md:order-1">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <motion.div
+        whileHover={{ y: -10 }}
+        transition={{ duration: 0.3 }}
+        className="h-full"
+      >
+        <div className={`group h-full rounded-xl border bg-card overflow-hidden transition-all duration-300 relative ${
+          project.featured
+            ? 'border-primary shadow-2xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:border-primary'
+            : 'border-border hover:shadow-xl hover:shadow-accent/10 hover:border-accent/50'
+        }`}>
+          {/* Glowing Top Border */}
+          <div className={`absolute top-0 left-0 right-0 h-1 ${
+            project.featured
+              ? 'bg-gradient-to-r from-primary via-accent to-primary'
+              : 'bg-gradient-to-r from-accent via-primary/50 to-accent'
+          }`} />
 
-        {/* Content */}
-        <div className="flex flex-col justify-between order-1 md:order-2">
-          <div>
-            <h3 className="text-2xl font-bold text-foreground mb-2">{project.title}</h3>
-            <p className="text-base text-foreground/70 mb-4 leading-relaxed">
-              {project.longDescription}
-            </p>
+          {/* Featured Ribbon */}
+          {project.featured && (
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-1 px-3 py-1.5 bg-primary text-primary-foreground text-xs font-bold rounded-full shadow-lg">
+              <Star className="w-3 h-3 fill-current" />
+              Featured
+            </div>
+          )}
 
-            {/* Impact */}
-            {project.impact && (
-              <div className="mb-4 pb-4 border-b border-border/30">
-                <p className="text-sm font-medium text-foreground/60 mb-1">Impact</p>
-                <p className="text-base text-foreground">{project.impact}</p>
+          {/* Image Container with Auto-Rotate */}
+          <div
+            className="relative h-48 sm:h-56 overflow-hidden bg-accent"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img
+              src={images[currentImageIndex]}
+              alt={project.title}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+            {/* Image Counter */}
+            {images.length > 1 && (
+              <div className="absolute top-3 right-3 px-2 py-1 text-xs bg-black/70 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                {currentImageIndex + 1}/{images.length}
               </div>
             )}
 
-            {/* Technologies */}
-            <div className="mb-6">
-              <p className="text-sm font-medium text-foreground/60 mb-2">Stack</p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
+            {/* Quick Details Button */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="absolute bottom-3 right-3 p-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+              aria-label="View details"
+            >
+              <Maximize2 className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 flex flex-col h-full">
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground line-clamp-2 mb-2">{project.title}</h3>
+              <p className="text-xs sm:text-sm text-foreground/60 mb-3 line-clamp-2">{project.description}</p>
+
+              {/* Impact Metric */}
+              {project.impact && (
+                <p className="text-xs sm:text-sm text-primary font-semibold mb-4 inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
+                  {project.impact}
+                </p>
+              )}
+
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.technologies.slice(0, 3).map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1 text-sm rounded-full bg-foreground/5 text-foreground border border-border"
+                    className="inline-block px-2.5 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 transition-colors"
                   >
                     {tech}
                   </span>
                 ))}
+                {project.technologies.length > 3 && (
+                  <span className="inline-block px-2.5 py-1 text-xs font-medium rounded-full bg-muted text-foreground/70 border border-border">
+                    +{project.technologies.length - 3}
+                  </span>
+                )}
               </div>
             </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 flex-col sm:flex-row">
-            {project.live && (
+            {/* Links */}
+            <div className="flex gap-2 mt-auto">
               <Button
-                asChild
-                className="flex items-center gap-2 bg-foreground text-background hover:bg-foreground/90"
-              >
-                <a href={project.live} target="_blank" rel="noopener noreferrer">
-                  View Live
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </Button>
-            )}
-            {project.github && (
-              <Button
-                asChild
+                size="sm"
                 variant="outline"
-                className="flex items-center gap-2"
+                className="flex-1 text-xs sm:text-sm"
+                onClick={() => setIsModalOpen(true)}
               >
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="w-4 h-4" />
-                  Source Code
-                </a>
+                <Maximize2 className="w-4 h-4 mr-2" />
+                Details
               </Button>
-            )}
-            <Button
-              variant="outline"
-              onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2"
-            >
-              More Details
-            </Button>
+              {project.live && (
+                <Button size="sm" asChild className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground text-xs sm:text-sm">
+                  <Link href={project.live} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Live
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
+      {/* Modal */}
       <ProjectDetailsModal
         project={project}
         isOpen={isModalOpen}
