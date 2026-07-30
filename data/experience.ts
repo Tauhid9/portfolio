@@ -20,6 +20,7 @@ export const experienceData: Experience[] = [
       "Engineered Suzuki Digital Higher Purchase platform with borrower/admin portals using Next.js and MSSQL",
       "Built social data analysis platform integrating Python AI models for sentiment analysis and trend forecasting",
       "Developed EZAssist POS solution using AngularJS and Node.js with real-time inventory updates via WebSocket",
+      "Built AI-worker platform for automating repetitive tasks and enhancing productivity",
       "Implemented delivery configuration system with Google Maps API integration and radius-based zone calculation",
       "Integrated secure payment gateway with complete transaction lifecycle handling",
       "Optimized database queries and CRUD operations, improving application performance"
@@ -34,7 +35,9 @@ export const experienceData: Experience[] = [
     description: "Founded and leading software development company providing IT solutions and development services",
     achievements: [
       "Established company with focus on full-stack development and modern web technologies",
-      "Managed development of studio.karigar project - architect website with admin and client portals",
+      "Built dus-app: Patient Management system with Firebase and Cloudinary integration",
+      "Created dus-financial: Financial Management application with analytics dashboard",
+      "Delivered the A. M. & Associates architecture studio website with project archive, process pages, and contact experience",
       "Led technical architecture and technology decisions for client projects",
       "Built scalable solutions using Next.js, Node.js, React.js, and FastAPI"
     ]
@@ -47,9 +50,8 @@ export const experienceData: Experience[] = [
     endDate: "Present",
     description: "Developed multiple production applications with various tech stacks and for different domains",
     achievements: [
-      "Built dus-app: Patient Management system with Firebase and Cloudinary integration",
-      "Created dus-financial: Financial Management application with analytics dashboard",
-      "Developed portal.sonirvor.com: Service marketplace with worker registration using FastAPI and PostgreSQL",
+      "Built portfolio website with Next.js, Tailwind CSS, and TypeScript showcasing projects and skills",
+      "Created Daily Weather - Weather Forecast Application with real-time data fetching and responsive design",
       "Engineered TechNex IT Solution corporate website with SSR/SSG optimization",
       "Achieved superior Core Web Vitals through asset optimization and lazy loading"
     ]
@@ -58,8 +60,8 @@ export const experienceData: Experience[] = [
     id: "4",
     company: "Dristy Unnayan Sangstha",
     position: "IT Support",
-    startDate: "2022",
-    endDate: "2023",
+    startDate: "2023",
+    endDate: "2024",
     description: "Provided technical support and IT infrastructure management for organization operations",
     achievements: [
       "Managed IT infrastructure and supported 50+ users with daily technical issues",

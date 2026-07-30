@@ -21,7 +21,6 @@ export function TimelineItem({
   achievements,
   isCurrent,
 }: TimelineItemProps) {
-  // Generate company initials
   const initials = company
     .split(' ')
     .map((word) => word[0])
@@ -47,10 +46,8 @@ export function TimelineItem({
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      {/* Animated Timeline Line */}
       <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-primary" />
 
-      {/* Timeline Dot with Avatar */}
       <motion.div
         className="absolute left-0 top-0 w-14 h-14 rounded-full border-4 border-background shadow-lg"
         whileHover={{ scale: 1.1 }}
@@ -60,7 +57,6 @@ export function TimelineItem({
         </div>
       </motion.div>
 
-      {/* Current Role Indicator */}
       {isCurrent && (
         <motion.div
           className="absolute -left-1 -top-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-background"
@@ -69,7 +65,6 @@ export function TimelineItem({
         />
       )}
 
-      {/* Content Card */}
       <motion.div className="bg-card border border-border rounded-lg p-5 hover:border-primary/50 transition-colors">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-2">
           <div>
@@ -92,7 +87,7 @@ export function TimelineItem({
           <ul className="space-y-2">
             {achievements.slice(0, 3).map((achievement, index) => (
               <li key={index} className="text-xs text-foreground/60 flex gap-2">
-                <span className="text-primary mt-1">•</span>
+                <span className="text-primary mt-1">-</span>
                 <span>{achievement}</span>
               </li>
             ))}

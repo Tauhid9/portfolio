@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Linkedin, Github, Twitter, MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Facebook } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -43,7 +43,7 @@ export function Contact() {
 
       if (response.ok) {
         setSubmitStatus('success')
-        setStatusMessage('Message sent successfully! I\'ll reply within 24 hours. Check your email for confirmation.')
+        setStatusMessage("Message sent successfully! I'll reply within 24 hours. Check your email for confirmation.")
         setFormData({
           name: '',
           email: '',
@@ -66,7 +66,6 @@ export function Contact() {
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -87,7 +86,6 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          {/* Contact Info */}
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-foreground mb-8">Contact Information</h3>
 
@@ -95,8 +93,8 @@ export function Contact() {
               { icon: Mail, label: 'Email', value: 'tauhidhasan2017bd@gmail.com', href: 'mailto:tauhidhasan2017bd@gmail.com', color: 'from-primary/30 to-primary/10' },
               { icon: MessageCircle, label: 'WhatsApp', value: '+88 01518972645', href: 'https://wa.me/8801518972645', color: 'from-green-500/30 to-green-500/10' },
               { icon: Phone, label: 'Phone', value: '+88 01518972645', href: 'tel:+8801518972645', color: 'from-cyan-500/30 to-cyan-500/10' },
-              { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh 🇧🇩', href: '#', color: 'from-violet-500/30 to-violet-500/10' },
-            ].map((item, index) => (
+              { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh', href: '#', color: 'from-violet-500/30 to-violet-500/10' },
+            ].map((item) => (
               <motion.div
                 key={item.label}
                 className="flex gap-4 group"
@@ -108,21 +106,25 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm sm:text-base font-medium text-foreground">{item.label}</h4>
-                  <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="text-sm text-foreground/70 hover:text-primary transition-colors">
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="text-sm text-foreground/70 hover:text-primary transition-colors"
+                  >
                     {item.value}
                   </a>
                 </div>
               </motion.div>
             ))}
 
-            {/* Social Links */}
             <div className="pt-6">
               <h4 className="text-base sm:text-lg font-medium text-foreground mb-4">Connect With Me</h4>
               <div className="flex flex-wrap gap-3">
                 {[
                   { icon: Github, label: 'GitHub', href: 'https://github.com/Tauhid9' },
                   { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/tauhid26' },
-                  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/tauhid_hasan' },
+                  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/hasan.tauhid.129' },
                 ].map((social) => (
                   <motion.div key={social.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                     <Button size="sm" variant="outline" asChild className="border-primary/30 hover:bg-primary/10">
@@ -137,7 +139,6 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -145,13 +146,11 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="p-8 rounded-xl border border-border bg-card hover:border-primary/50 transition-all">
-              {/* Response Time Badge */}
-              <div className="mb-6 inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-xs font-semibold text-primary">
-                ⚡ Response within 24 hours
+              <div className="mb-6 inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                Response within 24 hours
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name */}
                 <motion.div whileHover={{ x: 2 }}>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Name
@@ -168,7 +167,6 @@ export function Contact() {
                   />
                 </motion.div>
 
-                {/* Email */}
                 <motion.div whileHover={{ x: 2 }}>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Email
@@ -185,7 +183,6 @@ export function Contact() {
                   />
                 </motion.div>
 
-                {/* Subject */}
                 <motion.div whileHover={{ x: 2 }}>
                   <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
                     Subject
@@ -202,7 +199,6 @@ export function Contact() {
                   />
                 </motion.div>
 
-                {/* Message */}
                 <motion.div whileHover={{ x: 2 }}>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                     Message
@@ -219,7 +215,6 @@ export function Contact() {
                   />
                 </motion.div>
 
-                {/* Status Message */}
                 {submitStatus === 'success' && (
                   <motion.div
                     className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-700 dark:text-green-400"
@@ -240,7 +235,6 @@ export function Contact() {
                   </motion.div>
                 )}
 
-                {/* Submit Button */}
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     type="submit"

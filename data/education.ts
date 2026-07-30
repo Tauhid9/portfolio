@@ -6,6 +6,7 @@ export interface Education {
   startDate: string
   endDate: string
   details?: string
+  achievements?: string[]
   type: "degree" | "certification" | "course"
 }
 
@@ -15,7 +16,7 @@ export const educationData: Education[] = [
     institution: "University of Information Technology and Sciences (UITS)",
     degree: "Bachelor of Science",
     field: "Information Technology",
-    startDate: "Sep 2020",
+    startDate: "Jan 2020",
     endDate: "Jan 2024",
     details: "CGPA: 3.71/4.00, Baridhara, Dhaka, Bangladesh",
     type: "degree"
@@ -25,7 +26,7 @@ export const educationData: Education[] = [
     institution: "Tejgaon College",
     degree: "Higher Secondary Certificate (HSC)",
     field: "General Education",
-    startDate: "2019",
+    startDate: "2017",
     endDate: "2019",
     details: "GPA: 3.50/5.00, Dhaka Board",
     type: "degree"
@@ -35,9 +36,9 @@ export const educationData: Education[] = [
     institution: "Kanchanpur Haor High School",
     degree: "Secondary School Certificate (SSC)",
     field: "General Education",
-    startDate: "2017",
+    startDate: "2015",
     endDate: "2017",
-    details: "GPA: 4.82/5.00, Dhaka Board - Excellent Academic Achievement",
+    details: "GPA: 4.82/5.00, Dhaka Board",
     type: "degree"
   },
   {
@@ -57,7 +58,10 @@ export const educationData: Education[] = [
     field: "Algorithm & Problem Solving",
     startDate: "2022",
     endDate: "2022",
-    details: "Champion at Intra University Programming Contest 2022; 14th at Solo Intra University Victory Day Programming Contest 2022",
+    achievements: [
+      "Champion at Intra University Programming Contest 2022 | Bangladesh 2022",
+      "14th at Solo Intra University Victory Day Programming Contest 2022 | Bangladesh 2022",
+    ],
     type: "certification"
   }
 ]

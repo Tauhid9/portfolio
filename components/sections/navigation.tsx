@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, Github, Linkedin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/features/theme-toggle'
 import { ScrollProgressBar } from '@/components/features/scroll-progress-bar'
 import { useActiveSection } from '@/hooks/use-active-section'
+import { siteConfig } from '@/lib/site'
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -27,11 +29,21 @@ export function Navigation() {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0 hover:opacity-80 transition-opacity">
-              <div className="w-7 sm:w-8 h-7 sm:h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-bold text-sm sm:text-lg">T</span>
+            <Link href="/" className="flex items-center gap-3 flex-shrink-0 transition-opacity hover:opacity-90">
+              <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-[0_12px_30px_-18px_rgba(0,212,255,0.7)] ring-1 ring-white/50">
+                <Image
+                  src={siteConfig.profileImage}
+                  alt={siteConfig.name}
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                  priority
+                />
               </div>
-              <span className="font-bold text-base sm:text-lg text-foreground hidden sm:inline">Tauhid</span>
+              <div className="hidden min-w-0 sm:flex sm:flex-col sm:leading-tight">
+                <span className="truncate text-sm font-bold text-foreground lg:text-base">{siteConfig.shortName}</span>
+                <span className="truncate text-[11px] font-medium text-foreground/55 lg:text-xs">Full-Stack Developer</span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}

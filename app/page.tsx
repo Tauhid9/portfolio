@@ -50,7 +50,7 @@ export default function Home() {
           </div>
           <div className="border-t border-border pt-6 sm:pt-8 text-center text-foreground/60 text-xs sm:text-sm">
             <p>&copy; 2026 Tauhid Hasan Chowdhury. All rights reserved.</p>
-            <p className="mt-2">Designed & Built with heart using Next.js, React & Tailwind CSS</p>
+            {/* <p className="mt-2">Designed & Built with heart using Next.js, React & Tailwind CSS</p> */}
           </div>
         </div>
       </footer>

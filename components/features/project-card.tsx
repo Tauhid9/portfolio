@@ -1,27 +1,53 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type KeyboardEvent, type MouseEvent } from 'react'
 import Link from 'next/link'
-import { ExternalLink, Github, Maximize2, Star } from 'lucide-react'
+import { ExternalLink, Maximize2, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProjectDetailsModal } from '@/components/modals/project-details-modal'
 import { motion } from 'framer-motion'
 import type { Project } from '@/data/projects'
+import { cn } from '@/lib/utils'
+import {
+  isProjectPortraitScreenshot,
+  isProjectScreenshot,
+} from '@/lib/project-gallery'
 
 interface ProjectCardProps {
   project: Project
-  showCodeButton?: boolean
 }
 
-export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  const images = project.images || [project.image]
+  const images = (project.images?.filter(Boolean).length ? project.images.filter(Boolean) : [project.image]).filter(Boolean)
+  const currentImage = images[currentImageIndex] ?? images[0] ?? project.image
+  const isScreenshotImage = isProjectScreenshot(currentImage)
+  const isPortraitImage = isProjectPortraitScreenshot(currentImage)
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  const openDetails = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement
+
+    if (target.closest('a, button')) {
+      return
+    }
+
+    openDetails()
+  }
+
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return
+    }
+
+    event.preventDefault()
+    openDetails()
   }
 
   const handleMouseEnter = () => {
@@ -40,6 +66,12 @@ export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps
   }
 
   useEffect(() => {
+    if (currentImageIndex >= images.length) {
+      setCurrentImageIndex(0)
+    }
+  }, [currentImageIndex, images.length, project.id])
+
+  useEffect(() => {
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
@@ -54,11 +86,18 @@ export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps
         transition={{ duration: 0.3 }}
         className="h-full"
       >
-        <div className={`group h-full rounded-xl border bg-card overflow-hidden transition-all duration-300 relative ${
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={handleCardClick}
+          onKeyDown={handleCardKeyDown}
+          aria-label={`Open details for ${project.title}`}
+          className={`group relative h-full cursor-pointer overflow-hidden rounded-xl border bg-card transition-all duration-300 ${
           project.featured
             ? 'border-primary shadow-2xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:border-primary'
             : 'border-border hover:shadow-xl hover:shadow-accent/10 hover:border-accent/50'
-        }`}>
+        }`}
+        >
           {/* Glowing Top Border */}
           <div className={`absolute top-0 left-0 right-0 h-1 ${
             project.featured
@@ -76,27 +115,50 @@ export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps
 
           {/* Image Container with Auto-Rotate */}
           <div
-            className="relative h-48 sm:h-56 overflow-hidden bg-accent"
+            className="relative h-48 overflow-hidden bg-accent sm:h-56"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
+            {isScreenshotImage && isPortraitImage && (
+              <img
+                src={currentImage}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-25"
+              />
+            )}
+
             <img
-              src={images[currentImageIndex]}
+              src={currentImage}
               alt={project.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className={cn(
+                'relative h-full w-full transition-transform duration-500 group-hover:scale-110',
+                isScreenshotImage
+                  ? isPortraitImage
+                    ? 'object-contain object-top p-4 sm:p-5'
+                    : 'object-cover object-top'
+                  : 'object-cover'
+              )}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
             {/* Image Counter */}
             {images.length > 1 && (
-              <div className="absolute top-3 right-3 px-2 py-1 text-xs bg-black/70 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+              <div
+                className={cn(
+                  'absolute top-3 right-3 rounded-lg px-2 py-1 text-xs transition-opacity',
+                  isScreenshotImage
+                    ? 'bg-white/95 text-slate-700 shadow-sm opacity-100'
+                    : 'bg-black/70 text-white opacity-0 group-hover:opacity-100'
+                )}
+              >
                 {currentImageIndex + 1}/{images.length}
               </div>
             )}
 
             {/* Quick Details Button */}
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={openDetails}
               className="absolute bottom-3 right-3 p-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
               aria-label="View details"
             >
@@ -141,7 +203,7 @@ export function ProjectCard({ project, showCodeButton = true }: ProjectCardProps
                 size="sm"
                 variant="outline"
                 className="flex-1 text-xs sm:text-sm"
-                onClick={() => setIsModalOpen(true)}
+                onClick={openDetails}
               >
                 <Maximize2 className="w-4 h-4 mr-2" />
                 Details

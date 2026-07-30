@@ -1,17 +1,40 @@
-# v0 sandbox internal files
+# v0 / local sandbox artifacts
 __v0_runtime_loader.js
 __v0_devtools.tsx
 __v0_jsx-dev-runtime.ts
 .snowflake/
 .v0-trash/
-.vercel/
 next.user-config.*
 
-# Environment variables
-.env*.local
-
-# Common ignores
-node_modules
+# Build output
 .next/
+out/
+dist/
+coverage/
+tsconfig.tsbuildinfo
+
+# Dependency directories
+node_modules/
+
+# Deployment / tooling
+.vercel/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor noise
 .DS_Store
-.vercel
+Thumbs.db
+.idea/
+.vscode/

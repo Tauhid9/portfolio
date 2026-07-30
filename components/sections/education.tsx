@@ -39,16 +39,32 @@ export function Education() {
         {/* Certifications */}
         {certifications.length > 0 && (
           <div className="mb-12">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Certifications</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-6">Certifications & Achievements</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {certifications.map((edu) => (
                 <div key={edu.id} className="p-6 rounded-lg bg-card border border-border hover:border-cyan-500/50 transition-colors">
                   <h4 className="text-lg font-bold text-foreground mb-1">{edu.degree}</h4>
                   <p className="text-sm text-cyan-600 dark:text-cyan-400 font-medium mb-2">{edu.institution}</p>
                   <p className="text-sm text-foreground/70 mb-2">{edu.field}</p>
-                  <p className="text-xs text-foreground/60">
+                  <p className="text-xs text-foreground/60 mb-4">
                     {edu.startDate} - {edu.endDate}
                   </p>
+                  {edu.achievements && edu.achievements.length > 0 && (
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-2">Achievements</p>
+                      <ul className="space-y-2">
+                        {edu.achievements.map((achievement, index) => (
+                          <li key={index} className="text-sm text-foreground/70 flex gap-2">
+                            <span className="text-cyan-500 mt-0.5">•</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {!edu.achievements && edu.details && (
+                    <p className="text-sm text-foreground/60">{edu.details}</p>
+                  )}
                 </div>
               ))}
             </div>

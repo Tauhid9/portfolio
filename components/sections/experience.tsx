@@ -4,25 +4,6 @@ import { motion } from 'framer-motion'
 import { experienceData } from '@/data/experience'
 import { TimelineItem } from '@/components/features/timeline-item'
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6 },
-  },
-}
-
 export function Experience() {
   return (
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -43,7 +24,7 @@ export function Experience() {
 
         {/* Timeline */}
         <div className="relative space-y-2">
-          {experienceData.map((exp, index) => {
+          {experienceData.map((exp) => {
             const isCurrent = exp.endDate === 'Present' || !exp.endDate
             return (
               <TimelineItem

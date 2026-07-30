@@ -9,7 +9,6 @@ import { motion } from 'framer-motion'
 export function Projects() {
   const [showAll, setShowAll] = useState(false)
   const topProjects = projects.slice(0, 3)
-  const remainingProjects = projects.slice(3)
   const hasMoreProjects = projects.length > 3
   const displayedProjects = showAll ? projects : topProjects
 
@@ -39,11 +38,7 @@ export function Projects() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           {displayedProjects.map((project) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project}
-              showCodeButton={!showAll}
-            />
+            <ProjectCard key={project.id} project={project} />
           ))}
         </motion.div>
 

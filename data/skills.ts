@@ -12,11 +12,12 @@ export const skillsData: SkillCategory[] = [
   {
     category: "Frontend Development",
     skills: [
-      { name: "React", proficiency: 95 },
+     
       { name: "Next.js", proficiency: 90 },
       { name: "TypeScript", proficiency: 88 },
       { name: "Tailwind CSS", proficiency: 92 },
       { name: "JavaScript", proficiency: 95 },
+       { name: "React", proficiency: 75 },
       { name: "HTML5", proficiency: 92 },
       { name: "CSS3", proficiency: 90 },
       { name: "Bootstrap", proficiency: 85 }
@@ -26,11 +27,11 @@ export const skillsData: SkillCategory[] = [
     category: "Backend Development",
     skills: [
       { name: "Node.js", proficiency: 88 },
-      { name: "Express.js", proficiency: 85 },
+      { name: "Express.js", proficiency: 75 },
       { name: "Python", proficiency: 80 },
       { name: "FastAPI", proficiency: 82 },
       { name: "PostgreSQL", proficiency: 85 },
-      { name: "MySQL", proficiency: 88 },
+      { name: "MySQL", proficiency: 90 },
       { name: "SQL", proficiency: 90 },
       { name: "REST APIs", proficiency: 90 }
     ]
