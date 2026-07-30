@@ -20,12 +20,15 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [imageSrc, setImageSrc] = useState(project.image)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const placeholderSrc = '/projects/project-placeholder.svg'
 
   const images = (project.images?.filter(Boolean).length ? project.images.filter(Boolean) : [project.image]).filter(Boolean)
   const currentImage = images[currentImageIndex] ?? images[0] ?? project.image
-  const isScreenshotImage = isProjectScreenshot(currentImage)
-  const isPortraitImage = isProjectPortraitScreenshot(currentImage)
+  const activeImage = imageSrc || placeholderSrc
+  const isScreenshotImage = isProjectScreenshot(activeImage)
+  const isPortraitImage = isProjectPortraitScreenshot(activeImage)
 
   const openDetails = () => {
     setIsModalOpen(true)
@@ -70,6 +73,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
       setCurrentImageIndex(0)
     }
   }, [currentImageIndex, images.length, project.id])
+
+  useEffect(() => {
+    setImageSrc(currentImage || placeholderSrc)
+  }, [currentImage, placeholderSrc])
 
   useEffect(() => {
     return () => {
@@ -121,7 +128,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           >
             {isScreenshotImage && isPortraitImage && (
               <img
-                src={currentImage}
+                src={activeImage}
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-25"
@@ -129,8 +136,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             )}
 
             <img
-              src={currentImage}
+              src={activeImage}
               alt={project.title}
+              onError={() => setImageSrc(placeholderSrc)}
               className={cn(
                 'relative h-full w-full transition-transform duration-500 group-hover:scale-110',
                 isScreenshotImage

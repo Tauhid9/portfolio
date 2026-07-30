@@ -40,14 +40,17 @@ const SHOWCASE_THEMES = {
 export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetailsModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [viewMode, setViewMode] = useState<'overview' | 'code'>('overview')
+  const [imageSrc, setImageSrc] = useState(project.image)
+  const placeholderSrc = '/projects/project-placeholder.svg'
 
   const images = (project.images?.filter(Boolean).length ? project.images.filter(Boolean) : [project.image]).filter(Boolean)
   const currentImage = images[currentImageIndex] ?? images[0] ?? project.image
-  const usesScreenshotGallery = isProjectScreenshot(currentImage)
-  const imageMeta = getProjectScreenshotMeta(currentImage, project.title)
-  const imageTheme = getProjectImageTheme(currentImage)
+  const activeImage = imageSrc || placeholderSrc
+  const usesScreenshotGallery = isProjectScreenshot(activeImage)
+  const imageMeta = getProjectScreenshotMeta(activeImage, project.title)
+  const imageTheme = getProjectImageTheme(activeImage)
   const showcaseTheme = SHOWCASE_THEMES[imageTheme as keyof typeof SHOWCASE_THEMES] ?? SHOWCASE_THEMES.default
-  const isPortraitImage = isProjectPortraitScreenshot(currentImage)
+  const isPortraitImage = isProjectPortraitScreenshot(activeImage)
   const hasGithub = Boolean(project.github)
   const hasLive = Boolean(project.live)
 
@@ -78,6 +81,10 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
       setCurrentImageIndex(0)
     }
   }, [currentImageIndex, images.length, project.id])
+
+  useEffect(() => {
+    setImageSrc(currentImage || placeholderSrc)
+  }, [currentImage, placeholderSrc])
 
   useEffect(() => {
     if (!isOpen) {
@@ -267,7 +274,7 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
                           >
                             {usesScreenshotGallery && isPortraitImage && (
                               <img
-                                src={currentImage}
+                                src={activeImage}
                                 alt=""
                                 aria-hidden="true"
                                 className="absolute inset-0 h-full w-full scale-110 object-cover blur-3xl opacity-20"
@@ -285,8 +292,9 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
                               )}
                             >
                               <img
-                                src={currentImage}
+                                src={activeImage}
                                 alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                                onError={() => setImageSrc(placeholderSrc)}
                                 className={cn(
                                   'w-full rounded-[1.1rem]',
                                   usesScreenshotGallery

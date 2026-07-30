@@ -144,7 +144,7 @@ export function Hero() {
             asChild
             className="w-full border-2 hover:bg-accent/10 sm:w-auto"
           >
-            <Link href="/resume.pdf" download>
+            <Link href="/Tauhid_Hasan_Chowdhury_CV.pdf" download="Tauhid_Hasan_Chowdhury_CV.pdf">
               <Download className="mr-2 h-5 w-5" />
               Download CV
             </Link>

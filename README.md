@@ -28,9 +28,9 @@ Create a polished, maintainable portfolio that presents software engineering and
 - Social/profile icon assets and project screenshots stored locally
 
 ## Screenshots
-![Portfolio Hero](public/projects/sharedtoday/landing-clean.png)
-![Project Showcase](public/projects/suzuki-digital/models-clean.png)
-![Dashboard Example](public/projects/dus-financial/dashboard-clean.png)
+The screenshots below represent the portfolio website itself, not the client projects featured inside it.
+
+![Portfolio Skills Section](public/readme/portfolio-skills-section.png)
 
 ## Technology Stack
 - Framework: Next.js 16 (App Router)

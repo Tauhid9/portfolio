@@ -1,0 +1,11 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F6EFE7"/>
+  <rect x="116" y="92" width="1368" height="716" rx="34" fill="#FDF9F4"/>
+  <rect x="182" y="190" width="560" height="460" rx="30" fill="#EEE1D4"/>
+  <rect x="812" y="190" width="458" height="74" rx="20" fill="#FFFFFF"/>
+  <rect x="812" y="290" width="458" height="74" rx="20" fill="#FFFFFF"/>
+  <rect x="812" y="390" width="458" height="164" rx="24" fill="#FFFFFF"/>
+  <rect x="812" y="578" width="250" height="58" rx="18" fill="#4B382A"/>
+  <text x="800" y="142" text-anchor="middle" fill="#4A3729" font-family="Arial, sans-serif" font-size="62" font-weight="700">Contact Experience</text>
+  <text x="800" y="720" text-anchor="middle" fill="#7C6757" font-family="Arial, sans-serif" font-size="28">Structured inquiry flow with studio details, map context, and strong call to action.</text>
+</svg>

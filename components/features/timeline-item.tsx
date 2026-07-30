@@ -26,7 +26,6 @@ export function TimelineItem({
     .map((word) => word[0])
     .join('')
     .toUpperCase()
-    .slice(0, 2)
 
   const colors = [
     'from-primary to-accent',

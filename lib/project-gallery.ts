@@ -23,7 +23,15 @@ const SCREEN_METADATA: Record<string, { eyebrow: string; label: string }> = {
     eyebrow: 'Portfolio',
     label: 'Projects Archive',
   },
+  'projects-clean.svg': {
+    eyebrow: 'Portfolio',
+    label: 'Projects Archive',
+  },
   'about-clean.png': {
+    eyebrow: 'Story',
+    label: 'About Studio',
+  },
+  'about-clean.svg': {
     eyebrow: 'Story',
     label: 'About Studio',
   },
@@ -31,7 +39,15 @@ const SCREEN_METADATA: Record<string, { eyebrow: string; label: string }> = {
     eyebrow: 'Approach',
     label: 'Design Process',
   },
+  'process-clean.svg': {
+    eyebrow: 'Approach',
+    label: 'Design Process',
+  },
   'contact-clean.png': {
+    eyebrow: 'Connect',
+    label: 'Contact Experience',
+  },
+  'contact-clean.svg': {
     eyebrow: 'Connect',
     label: 'Contact Experience',
   },

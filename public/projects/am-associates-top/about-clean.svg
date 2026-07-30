@@ -1,0 +1,12 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5EEE5"/>
+  <rect x="120" y="108" width="1360" height="684" rx="34" fill="#FBF7F1"/>
+  <circle cx="380" cy="360" r="124" fill="#E4D4C3"/>
+  <rect x="580" y="248" width="440" height="20" rx="10" fill="#433227" fill-opacity="0.18"/>
+  <rect x="580" y="296" width="620" height="14" rx="7" fill="#433227" fill-opacity="0.1"/>
+  <rect x="580" y="332" width="560" height="14" rx="7" fill="#433227" fill-opacity="0.1"/>
+  <rect x="580" y="368" width="590" height="14" rx="7" fill="#433227" fill-opacity="0.1"/>
+  <rect x="240" y="560" width="1120" height="130" rx="26" fill="#EDE0D3"/>
+  <text x="800" y="460" text-anchor="middle" fill="#4A3729" font-family="Arial, sans-serif" font-size="62" font-weight="700">About Studio</text>
+  <text x="800" y="520" text-anchor="middle" fill="#7C6757" font-family="Arial, sans-serif" font-size="28">Team narrative, philosophy, and the design identity behind the practice.</text>
+</svg>
