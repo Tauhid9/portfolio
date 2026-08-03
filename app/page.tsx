@@ -38,8 +38,9 @@ export default function Home() {
                 <li><a href="#home" className="transition-colors hover:text-primary">Home</a></li>
                 <li><a href="#about" className="transition-colors hover:text-primary">About</a></li>
                 <li><a href="#projects" className="transition-colors hover:text-primary">Projects</a></li>
-                <li><a href="#experience" className="transition-colors hover:text-primary">Experience</a></li>
                 <li><a href="#skills" className="transition-colors hover:text-primary">Skills</a></li>
+                <li><a href="#experience" className="transition-colors hover:text-primary">Experience</a></li>
+                <li><a href="#education" className="transition-colors hover:text-primary">Education</a></li>
                 <li><a href="#contact" className="transition-colors hover:text-primary">Contact</a></li>
               </ul>
             </div>

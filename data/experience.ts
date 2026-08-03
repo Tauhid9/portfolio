@@ -54,18 +54,18 @@ export const experienceData: Experience[] = [
       "Improved loading behavior through asset optimization and lighter UI delivery."
     ]
   },
-  {
-    id: "4",
-    company: "Dristy Unnayan Sangstha",
-    position: "IT Support",
-    startDate: "2023",
-    endDate: "2024",
-    description: "Provided day-to-day technical support and basic infrastructure assistance for organizational operations.",
-    achievements: [
-      "Installed, configured, and maintained computer systems and office network setups.",
-      "Troubleshot hardware and software issues across daily operational use cases.",
-      "Handled system updates, security patching, and basic data backup routines.",
-      "Documented support procedures and guided staff on software usage."
-    ]
-  }
+  // {
+  //   id: "4",
+  //   company: "Dristy Unnayan Sangstha",
+  //   position: "IT Support",
+  //   startDate: "2023",
+  //   endDate: "2024",
+  //   description: "Provided day-to-day technical support and basic infrastructure assistance for organizational operations.",
+  //   achievements: [
+  //     "Installed, configured, and maintained computer systems and office network setups.",
+  //     "Troubleshot hardware and software issues across daily operational use cases.",
+  //     "Handled system updates, security patching, and basic data backup routines.",
+  //     "Documented support procedures and guided staff on software usage."
+  //   ]
+  // }
 ]
