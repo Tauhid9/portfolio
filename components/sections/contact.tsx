@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Facebook } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Github, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -73,9 +73,9 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Get In Touch</h2>
-          <p className="text-base sm:text-lg text-foreground/60 max-w-2xl mx-auto">
-            Let&apos;s discuss your next project or collaboration opportunity
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Let&apos;s Work Together</h2>
+          <p className="text-base sm:text-lg text-foreground/60 max-w-3xl mx-auto">
+            Reach out for full-stack development work, client projects, or collaboration on production web applications.
           </p>
         </motion.div>
 
@@ -87,7 +87,13 @@ export function Contact() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-foreground mb-8">Contact Information</h3>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Direct Contact</p>
+              <h3 className="mt-3 mb-4 text-2xl font-bold text-foreground">Available for product work, dashboards, and business web applications</h3>
+              <p className="max-w-xl text-sm leading-7 text-foreground/65 sm:text-base">
+                If you&apos;re hiring, collaborating, or looking for help building a modern web platform, the fastest way to reach me is by email or WhatsApp.
+              </p>
+            </div>
 
             {[
               { icon: Mail, label: 'Email', value: 'tauhidhasan2017bd@gmail.com', href: 'mailto:tauhidhasan2017bd@gmail.com', color: 'from-primary/30 to-primary/10' },
@@ -104,27 +110,30 @@ export function Contact() {
                 <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center group-hover:shadow-lg transition-all`}>
                   <item.icon className="h-6 w-6 text-primary" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-sm sm:text-base font-medium text-foreground">{item.label}</h4>
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-foreground/70 hover:text-primary transition-colors"
-                  >
-                    {item.value}
-                  </a>
+                  {item.href === '#' ? (
+                    <p className="text-sm text-foreground/70">{item.value}</p>
+                  ) : (
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="break-all text-sm text-foreground/70 transition-colors hover:text-primary"
+                    >
+                      {item.value}
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}
 
             <div className="pt-6">
-              <h4 className="text-base sm:text-lg font-medium text-foreground mb-4">Connect With Me</h4>
+              <h4 className="text-base sm:text-lg font-medium text-foreground mb-4">Professional Links</h4>
               <div className="flex flex-wrap gap-3">
                 {[
                   { icon: Github, label: 'GitHub', href: 'https://github.com/Tauhid9' },
                   { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/tauhid26' },
-                  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/hasan.tauhid.129' },
                 ].map((social) => (
                   <motion.div key={social.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                     <Button size="sm" variant="outline" asChild className="border-primary/30 hover:bg-primary/10">
@@ -145,10 +154,14 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="p-8 rounded-xl border border-border bg-card hover:border-primary/50 transition-all">
+            <div className="rounded-xl border border-border bg-card p-8 transition-all hover:border-primary/50">
               <div className="mb-6 inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                Response within 24 hours
+                Response usually within 24 hours
               </div>
+              <h3 className="mb-2 text-2xl font-bold text-foreground">Send a message</h3>
+              <p className="mb-6 text-sm leading-7 text-foreground/65">
+                Share a project brief, role details, or collaboration idea and I&apos;ll get back to you with the next step.
+              </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <motion.div whileHover={{ x: 2 }}>

@@ -177,10 +177,26 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {/* Content */}
           <div className="p-6 flex flex-col h-full">
             <div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground line-clamp-2 mb-2">{project.title}</h3>
-              <p className="text-xs sm:text-sm text-foreground/60 mb-3 line-clamp-2">{project.description}</p>
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                {project.client && (
+                  <span className="inline-flex rounded-full border border-border/70 bg-muted px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/60">
+                    {project.client}
+                  </span>
+                )}
+                <span className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  {project.category}
+                </span>
+              </div>
 
-              {/* Impact Metric */}
+              <h3 className="text-lg sm:text-xl font-bold text-foreground line-clamp-2 mb-2">{project.title}</h3>
+              <p className="text-xs sm:text-sm text-foreground/60 mb-3 line-clamp-3">{project.description}</p>
+
+              {project.contribution && (
+                <p className="mb-4 rounded-2xl border border-border/60 bg-muted/40 px-4 py-3 text-xs leading-6 text-foreground/70 sm:text-sm">
+                  <span className="font-semibold text-foreground">Contribution:</span> {project.contribution}
+                </p>
+              )}
+
               {project.impact && (
                 <p className="text-xs sm:text-sm text-primary font-semibold mb-4 inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
                   {project.impact}
@@ -206,11 +222,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             {/* Links */}
-            <div className="flex gap-2 mt-auto">
-              <Button
-                size="sm"
-                variant="outline"
-                className="flex-1 text-xs sm:text-sm"
+              <div className="flex gap-2 mt-auto">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex-1 text-xs sm:text-sm"
                 onClick={openDetails}
               >
                 <Maximize2 className="w-4 h-4 mr-2" />
@@ -220,7 +236,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 <Button size="sm" asChild className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground text-xs sm:text-sm">
                   <Link href={project.live} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Live
+                    Live Demo
                   </Link>
                 </Button>
               )}

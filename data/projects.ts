@@ -1,8 +1,11 @@
 export interface Project {
   id: number
   title: string
+  client?: string
   description: string
   longDescription: string
+  contribution?: string
+  highlights?: string[]
   image: string
   images: string[]
   technologies: string[]
@@ -17,8 +20,16 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "A. M. & Associates - Architecture Studio Website",
-    description: "Architecture studio website with project archive, process storytelling, team profiles, and contact experience",
-    longDescription: "A polished architecture and design studio website built for A. M. & Associates. The experience presents selected work through a visual project archive, dedicated process storytelling, contributor and team profiles, and a structured contact page with studio details and map integration. The website is built with Next.js, Supabase database, Cloudinary and Tailwind CSS, ensuring a responsive and visually appealing experience across devices.",
+    client: "A. M. & Associates",
+    description: "Production website for an architecture studio with project archive, process storytelling, team profiles, and lead-focused contact flow.",
+    longDescription: "Built and maintained the public-facing A. M. & Associates website to present the studio's work, process, team, and contact pathways in a polished format. The platform supports project discovery, process storytelling, contributor visibility, and structured inquiry flow across desktop and mobile screens.",
+    contribution: "Designed and developed the studio's public website experience and supporting content workflows.",
+    highlights: [
+      "Project archive with architecture and interior showcase screens",
+      "Dedicated process storytelling and studio narrative pages",
+      "Team and contributor presentation for studio credibility",
+      "Structured contact experience with office details and inquiry flow",
+    ],
     image: "/projects/am-associates-top/home-clean.png",
     images: [
       "/projects/am-associates-top/home-clean.png",
@@ -27,9 +38,9 @@ export const projects: Project[] = [
       "/projects/am-associates-top/about-clean.png",
       "/projects/am-associates-top/contact-clean.png"
     ],
-    technologies: ["Next.js", "Tailwind CSS","Supabase database", "Cloudinary", "Google Maps"],
+    technologies: ["Next.js", "Tailwind CSS", "Supabase", "Cloudinary", "Google Maps"],
     live: "https://www.am-associate.com/",
-    featured: false,
+    featured: true,
     category: "Full Stack",
     impact: "Live architecture studio presence for A. M. & Associates"
   },
@@ -37,8 +48,15 @@ export const projects: Project[] = [
   {
     id: 2,
     title: "Suzuki Digital Higher Purchase",
-    description: "Comprehensive borrower and admin portals for digital hire-purchase platform",
+    client: "Suzuki Bangladesh",
+    description: "Borrower and admin portals for a digital hire-purchase platform with approval, financing, and documentation workflows.",
     longDescription: "A sophisticated higher purchase platform with borrower and admin portals engineered using Next.js, Node.js, and MSSQL. Integrated Dana Score API for automated credit scoring, MDM and VTS APIs for asset tracking, and complex multi-stage approval workflows for financial tracking.",
+    contribution: "Contributed to borrower and admin flows for loan application, review, and platform operations.",
+    highlights: [
+      "Borrower application flow with multi-step document handling",
+      "Admin dashboard for approvals and disbursement workflows",
+      "Integrated credit scoring, tracking, and operational APIs",
+    ],
     image: "/projects/suzuki-digital/models-clean.png",
     images: [
       "/projects/suzuki-digital/login-clean.png",
@@ -58,8 +76,15 @@ export const projects: Project[] = [
   {
     id: 3,
     title: "DUS Financial - Financial Management Dashboard",
-    description: "Organization financial statement management and analytics platform",
-    longDescription: "A comprehensive financial management application for tracking and managing organization finances. Built with Next.js and Firebase, featuring custom date range financial reports, interactive analytics dashboard with visual insights, and real-time data synchronization for up-to-date financial records.",
+    client: "Dristy Unnayan Sangstha (DUS)",
+    description: "Financial management platform for statements, reporting, and analytics across organizational finance workflows.",
+    longDescription: "Built the DUS financial management platform to support statement management, reporting, and operational finance visibility. The application combines custom date-range reports, dashboard analytics, and synchronized records for day-to-day financial tracking.",
+    contribution: "Developed the dashboard, statement views, and reporting workflows for finance operations.",
+    highlights: [
+      "Custom date-range financial reports",
+      "Interactive dashboard for finance visibility",
+      "Statement management and synchronized record updates",
+    ],
     image: "/projects/dus-financial/dashboard-clean.png",
     images: [
       "/projects/dus-financial/dashboard-clean.png",
@@ -69,15 +94,24 @@ export const projects: Project[] = [
     ],
     technologies: ["Next.js", "Tailwind CSS", "Firebase", "Chart.js", "TypeScript"],
     live: "https://dus-finance.vercel.app/",
-    featured: false,
-    category: "Full Stack"
+    featured: true,
+    category: "Full Stack",
+    impact: "Financial reporting and statement management for DUS"
   },
 
   {
     id: 4,
     title: "DUS App - Patient Management System",
-    description: "Healthcare application for managing patient information and records",
-    longDescription: "A secure patient management web application built with Next.js and Tailwind CSS. Features Firebase for real-time database and hosting, Cloudinary for secure document and image storage, hospital-wise patient count tracking, and role-based access control with real-time data synchronization.",
+    client: "Dristy Unnayan Sangstha (DUS)",
+    description: "Patient management platform for managing records, workflow visibility, and document handling across healthcare operations.",
+    longDescription: "Built the DUS patient management system to support secure patient record handling, administrative workflows, and day-to-day operational access. The platform combines real-time data synchronization, document storage, and role-based access for staff-facing use cases.",
+    contribution: "Developed patient record workflows, dashboard screens, and supporting administrative tools.",
+    highlights: [
+      "Patient record and intake management workflows",
+      "Role-based access with real-time synchronization",
+      "Cloudinary-backed document and image storage",
+      "Hospital-wise tracking and printable application output",
+    ],
     image: "/projects/dus-app/dashboard-auth-clean.png",
     images: [
       "/projects/dus-app/dashboard-auth-clean.png",
@@ -87,8 +121,9 @@ export const projects: Project[] = [
       "/projects/dus-app/login-auth-clean.png"
     ],
     technologies: ["Next.js", "Tailwind CSS", "Firebase", "Cloudinary", "TypeScript"],
-    featured: false,
-    category: "Full Stack"
+    featured: true,
+    category: "Full Stack",
+    impact: "Patient workflow and records platform for DUS"
   },
 
   {
@@ -108,7 +143,7 @@ export const projects: Project[] = [
     ],
     technologies: ["AngularJS", "Node.js", "MSSQL", "WebSocket", "Bootstrap"],
     live: "https://signup.ezassist.me/",
-    featured: true,
+    featured: false,
     category: "Full Stack",
     impact: "Real-time inventory for retail businesses"
   },
@@ -127,7 +162,7 @@ export const projects: Project[] = [
     ],
     technologies: ["Next.js", "Node.js", "Python", "MSSQL", "Machine Learning"],
     live: "https://client.sharedtoday.com/",
-    featured: true,
+    featured: false,
     category: "Full Stack",
     impact: "AI-powered analytics for social media trends"
   },

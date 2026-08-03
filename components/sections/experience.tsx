@@ -17,8 +17,8 @@ export function Experience() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Work Experience</h2>
-          <p className="text-base sm:text-lg text-foreground/60 max-w-2xl mx-auto">
-            My professional journey and key milestones in the tech industry
+          <p className="text-base sm:text-lg text-foreground/60 max-w-3xl mx-auto">
+            Professional experience focused on full-stack delivery, product implementation, and client-facing web platforms.
           </p>
         </motion.div>
 

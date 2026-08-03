@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 
 export function useActiveSection() {
-  const [activeSection, setActiveSection] = useState<string>('about')
+  const [activeSection, setActiveSection] = useState<string>('home')
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['about', 'projects', 'skills', 'experience', 'education', 'contact']
+      const sections = ['home', 'about', 'projects', 'skills', 'experience', 'education', 'contact']
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section)
         if (!element) return false

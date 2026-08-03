@@ -15,15 +15,14 @@ export const experienceData: Experience[] = [
     position: "Software Developer",
     startDate: "Nov 2024",
     endDate: "Present",
-    description: "Developed full-stack web applications with modern tech stack including Next.js, Node.js, and databases",
+    description: "Building and maintaining production web applications with modern JavaScript, backend services, and database-driven workflows.",
     achievements: [
-      "Engineered Suzuki Digital Higher Purchase platform with borrower/admin portals using Next.js and MSSQL",
-      "Built social data analysis platform integrating Python AI models for sentiment analysis and trend forecasting",
-      "Developed EZAssist POS solution using AngularJS and Node.js with real-time inventory updates via WebSocket",
-      "Built AI-worker platform for automating repetitive tasks and enhancing productivity",
-      "Implemented delivery configuration system with Google Maps API integration and radius-based zone calculation",
-      "Integrated secure payment gateway with complete transaction lifecycle handling",
-      "Optimized database queries and CRUD operations, improving application performance"
+      "Engineered Suzuki Digital Higher Purchase borrower and admin portals with Next.js and MSSQL.",
+      "Built social data analysis workflows using Python-based sentiment analysis and forecasting models.",
+      "Developed EZAssist POS modules with AngularJS, Node.js, and real-time inventory updates.",
+      "Implemented Google Maps-based delivery configuration and operational zone calculation flows.",
+      "Integrated payment handling and transaction lifecycle support across production modules.",
+      "Optimized CRUD flows and query performance in database-backed applications."
     ]
   },
   {
@@ -32,14 +31,13 @@ export const experienceData: Experience[] = [
     position: "Founder & Software Engineer",
     startDate: "2024",
     endDate: "Present",
-    description: "Founded and leading software development company providing IT solutions and development services",
+    description: "Leading client-facing full-stack delivery for business websites, dashboards, and operational web applications.",
     achievements: [
-      "Established company with focus on full-stack development and modern web technologies",
-      "Built dus-app: Patient Management system with Firebase and Cloudinary integration",
-      "Created dus-financial: Financial Management application with analytics dashboard",
-      "Delivered the A. M. & Associates architecture studio website with project archive, process pages, and contact experience",
-      "Led technical architecture and technology decisions for client projects",
-      "Built scalable solutions using Next.js, Node.js, React.js, and FastAPI"
+      "Founded THCNext IT Solution in 2024 to deliver full-stack web products for local clients.",
+      "Built the DUS patient management system with Firebase and Cloudinary-based record workflows.",
+      "Developed the DUS financial dashboard and reporting application for operational finance tracking.",
+      "Delivered the A. M. & Associates architecture studio website with project archive, process pages, and contact flow.",
+      "Led architecture and implementation decisions across Next.js, Node.js, React, and FastAPI projects."
     ]
   },
   {
@@ -48,12 +46,12 @@ export const experienceData: Experience[] = [
     position: "Full Stack Developer",
     startDate: "2023",
     endDate: "Present",
-    description: "Developed multiple production applications with various tech stacks and for different domains",
+    description: "Built independent web products and showcase applications across different domains and technology stacks.",
     achievements: [
-      "Built portfolio website with Next.js, Tailwind CSS, and TypeScript showcasing projects and skills",
-      "Created Daily Weather - Weather Forecast Application with real-time data fetching and responsive design",
-      "Engineered TechNex IT Solution corporate website with SSR/SSG optimization",
-      "Achieved superior Core Web Vitals through asset optimization and lazy loading"
+      "Built this portfolio with Next.js, Tailwind CSS, and TypeScript to showcase verified project work.",
+      "Created Daily Weather with real-time data fetching and responsive frontend implementation.",
+      "Engineered company and product websites with SSR and frontend performance improvements.",
+      "Improved loading behavior through asset optimization and lighter UI delivery."
     ]
   },
   {
@@ -62,13 +60,12 @@ export const experienceData: Experience[] = [
     position: "IT Support",
     startDate: "2023",
     endDate: "2024",
-    description: "Provided technical support and IT infrastructure management for organization operations",
+    description: "Provided day-to-day technical support and basic infrastructure assistance for organizational operations.",
     achievements: [
-      "Managed IT infrastructure and supported 50+ users with daily technical issues",
-      "Installed, configured, and maintained computer systems and office networks",
-      "Troubleshot hardware and software problems, achieving 95% first-call resolution rate",
-      "Performed system updates, security patches, and data backup management",
-      "Documented IT procedures and provided user training on software applications"
+      "Installed, configured, and maintained computer systems and office network setups.",
+      "Troubleshot hardware and software issues across daily operational use cases.",
+      "Handled system updates, security patching, and basic data backup routines.",
+      "Documented support procedures and guided staff on software usage."
     ]
   }
 ]

@@ -55,6 +55,7 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
   const hasLive = Boolean(project.live)
 
   const detailCards = [
+    { label: 'Client', value: project.client ?? 'Independent / internal build' },
     { label: 'Category', value: project.category },
     { label: 'Gallery', value: `${images.length} ${images.length === 1 ? 'screen' : 'screens'}` },
     { label: 'Stack', value: `${project.technologies.length} technologies` },
@@ -346,6 +347,15 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
                       <p className="mt-4 text-sm leading-7 text-foreground/70">
                         {project.longDescription}
                       </p>
+
+                      {project.contribution && (
+                        <div className="mt-4 rounded-2xl border border-border/60 bg-muted/25 px-4 py-4">
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground/45">
+                            My Contribution
+                          </p>
+                          <p className="mt-2 text-sm leading-7 text-foreground/75">{project.contribution}</p>
+                        </div>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
@@ -385,6 +395,23 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
                           : 'Selected gallery visual from the project showcase.'}
                       </p>
                     </div>
+
+                    {project.highlights && project.highlights.length > 0 && (
+                      <div className="rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-sm">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-foreground/45">
+                          Key Features
+                        </p>
+
+                        <ul className="mt-4 space-y-3">
+                          {project.highlights.map((highlight) => (
+                            <li key={highlight} className="flex gap-3 text-sm leading-7 text-foreground/72">
+                              <span className="mt-2 h-2 w-2 rounded-full bg-primary" />
+                              <span>{highlight}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </aside>
                 </div>
               ) : (

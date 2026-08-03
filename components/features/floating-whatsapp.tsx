@@ -1,9 +1,11 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 
 export function FloatingWhatsApp() {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <motion.div
       className="fixed bottom-6 right-6 z-40"
@@ -13,18 +15,19 @@ export function FloatingWhatsApp() {
       viewport={{ once: true }}
     >
       <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          boxShadow: [
-            '0 0 20px rgba(34, 197, 94, 0.3)',
-            '0 0 40px rgba(34, 197, 94, 0.6)',
-            '0 0 20px rgba(34, 197, 94, 0.3)',
-          ],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-        }}
+        animate={
+          prefersReducedMotion
+            ? undefined
+            : {
+                scale: [1, 1.1, 1],
+                boxShadow: [
+                  '0 0 20px rgba(34, 197, 94, 0.3)',
+                  '0 0 40px rgba(34, 197, 94, 0.6)',
+                  '0 0 20px rgba(34, 197, 94, 0.3)',
+                ],
+              }
+        }
+        transition={prefersReducedMotion ? undefined : { duration: 2, repeat: Infinity }}
       >
         <Link
           href="https://wa.me/8801518972645?text=Hi%20Tauhid"
@@ -32,6 +35,7 @@ export function FloatingWhatsApp() {
           rel="noopener noreferrer"
           className="flex items-center justify-center w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110"
           title="Chat on WhatsApp"
+          aria-label="Chat with Tauhid on WhatsApp"
         >
           <svg
             className="w-8 h-8"
@@ -51,7 +55,7 @@ export function FloatingWhatsApp() {
         animate={{ opacity: 0, y: 4 }}
         transition={{ delay: 1 }}
       >
-        Chat with us
+        Chat with me
       </motion.div>
     </motion.div>
   )

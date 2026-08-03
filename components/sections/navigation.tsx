@@ -11,10 +11,11 @@ import { useActiveSection } from '@/hooks/use-active-section'
 import { siteConfig } from '@/lib/site'
 
 const navLinks = [
+  { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Projects', href: '#projects' },
-  { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Skills', href: '#skills' },
   { name: 'Contact', href: '#contact' },
 ]
 
@@ -27,7 +28,7 @@ export function Navigation() {
       <ScrollProgressBar />
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-xl">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex justify-between items-center h-14 sm:h-16">
+          <div className="flex h-14 items-center justify-between sm:h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 flex-shrink-0 transition-opacity hover:opacity-90">
               <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-[0_12px_30px_-18px_rgba(0,212,255,0.7)] ring-1 ring-white/50">
@@ -84,8 +85,10 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-foreground hover:bg-accent transition-colors"
+              className="inline-flex items-center justify-center rounded-md p-2 text-foreground transition-colors hover:bg-accent lg:hidden"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -94,7 +97,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t border-border/50 bg-background/90 backdrop-blur-md">
+          <div className="border-t border-border/50 bg-background/90 backdrop-blur-md lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.slice(1)

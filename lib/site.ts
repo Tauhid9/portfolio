@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: 'Tauhid Hasan Chowdhury',
   shortName: 'Tauhid Hasan',
-  role: 'Full-Stack Software Engineer',
-  siteUrl: 'https://tauhid-portfolio.vercel.app',
+  role: 'Full-Stack Developer',
+  siteUrl: 'https://tauhidportfolio.vercel.app',
   profileImage: '/profile/tauhid-hasan-chowdhury.jpg',
   icon32: '/profile/tauhid-icon-32.png',
   icon64: '/profile/tauhid-icon-64.png',

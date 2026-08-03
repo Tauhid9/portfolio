@@ -1,21 +1,18 @@
 interface SkillBadgeProps {
   name: string
-  proficiency: number
+  tone?: 'default' | 'subtle'
 }
 
-export function SkillBadge({ name, proficiency }: SkillBadgeProps) {
+export function SkillBadge({ name, tone = 'default' }: SkillBadgeProps) {
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium text-foreground">{name}</span>
-        <span className="text-xs text-foreground/60">{proficiency}%</span>
-      </div>
-      <div className="w-full h-2 bg-accent rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500"
-          style={{ width: `${proficiency}%` }}
-        />
-      </div>
-    </div>
+    <span
+      className={
+        tone === 'subtle'
+          ? 'inline-flex rounded-full border border-border/70 bg-muted/60 px-3 py-2 text-sm font-medium text-foreground/80'
+          : 'inline-flex rounded-full border border-primary/15 bg-primary/10 px-3 py-2 text-sm font-medium text-foreground/88 transition-colors hover:border-primary/35 hover:bg-primary/15'
+      }
+    >
+      {name}
+    </span>
   )
 }

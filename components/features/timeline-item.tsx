@@ -80,13 +80,13 @@ export function TimelineItem({
           </div>
         </div>
 
-        <p className="text-sm text-foreground/70 mb-3">{description}</p>
+        <p className="mb-4 text-sm leading-7 text-foreground/70">{description}</p>
 
         {achievements && achievements.length > 0 && (
-          <ul className="space-y-2">
-            {achievements.slice(0, 3).map((achievement, index) => (
-              <li key={index} className="text-xs text-foreground/60 flex gap-2">
-                <span className="text-primary mt-1">-</span>
+          <ul className="space-y-2.5">
+            {achievements.slice(0, 4).map((achievement, index) => (
+              <li key={index} className="flex gap-2 text-xs leading-6 text-foreground/65 sm:text-sm">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
                 <span>{achievement}</span>
               </li>
             ))}
