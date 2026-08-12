@@ -1,41 +1,39 @@
 # Project Context
 
-Last updated: July 30, 2026
+Last updated: August 12, 2026
 
 ## Overall Progress
-The portfolio is functional and visually mature. Major project cards now use polished real screenshots instead of generic stock imagery across multiple case studies.
+The portfolio is functional, visually mature, and ready for deployment validation. It uses a long-form product narrative, polished real project screenshots, responsive light/dark themes, and direct contact paths.
 
 ## Completed Milestones
 - Next.js portfolio foundation established
-- Hero, projects, skills, experience, education, and contact sections implemented
-- Project detail modal upgraded for richer showcase behavior
-- Real screenshot galleries added for Sharedtoday, Suzuki Digital Higher Purchase, DUS Financial, Daily Weather, DUS App, and A. M. & Associates
-- Skills section redesigned for stronger hierarchy and presentation
+- Fourteen-section product and portfolio narrative implemented
+- Selected work presents real screenshots for Sharedtoday, Suzuki Digital Higher Purchase, DUS Financial, Daily Weather, DUS App, EZAssist POS, and A. M. & Associates
+- Capabilities section redesigned for stronger hierarchy and presentation
 - Education achievements surfaced properly in UI
+- Cancellable cubic ease-out scrolling added for same-page navigation
+- Focused automated tests added for scroll timing and destination calculations
 
 ## Pending Milestones
-- Full automated test coverage
+- Broader component, API, and end-to-end test coverage
 - More robust form validation and anti-abuse protection
 - Optional CMS/content management layer
-- GitHub private repository creation and publish from this workspace
+- Independent Git repository creation and publish from this workspace
 
 ## Current Sprint
-- Convert the project into a production-ready, collaborator-friendly repository
-- Clean outdated artifacts and temporary files
-- Add durable documentation for human and AI contributors
-- Add repository governance files and CI
+- Validate and package the production deployment source
+- Keep runtime behavior, documentation, and CI checks synchronized
 
 ## Remaining Work
-- Final repository cleanup verification
-- Run lint, typecheck, and production build
-- Publish to a new private GitHub repository once GitHub access is available
+- Add component and end-to-end coverage for interactive UI
+- Add anti-abuse protection to the contact endpoint
+- Publish from a dedicated portfolio repository rather than the unrelated parent Git root
 
 ## Known Bugs
-- The supporting skills cards previously rendered invisibly due to animation state coupling; a fix has been applied and should be verified in-browser
 - Contact form depends on correct Gmail App Password configuration and does not yet include rate limiting
 
 ## Technical Debt
-- No formal unit/integration/e2e test suite yet
+- No component, API integration, or end-to-end suite yet
 - Some presentation/content values are still hardcoded in `data/`
 - Contact form email templates are embedded inline in the route handler
 
@@ -47,7 +45,7 @@ The portfolio is functional and visually mature. Major project cards now use pol
 
 ## Architectural Decisions
 - Section-oriented composition with data-driven content
-- Separate helper layer in `lib/` for modal gallery logic and site metadata
+- Separate helper layer in `lib/` for site metadata and tested scroll calculations
 - Reusable UI primitives under `components/ui/`
 
 ## Existing Limitations
@@ -56,12 +54,10 @@ The portfolio is functional and visually mature. Major project cards now use pol
 - No authentication or content editing workflow
 
 ## Blockers
-- A new private GitHub repository cannot be created from this environment right now because:
-  - `gh` CLI is not installed
-  - the connected GitHub app is not exposing accessible repositories for the current account
+- This folder is not an independent Git repository; Git currently resolves to an unrelated repository rooted at the user home directory
 
 ## Future Priorities
-- Add tests
+- Add component, API, and end-to-end tests
 - Improve SEO and metadata depth
 - Add stronger form validation and spam protection
 - Consider CMS-backed content management

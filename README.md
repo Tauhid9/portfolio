@@ -21,10 +21,11 @@ Create a polished, maintainable portfolio that presents software engineering and
 ## Key Features
 - Single-page responsive portfolio experience
 - Animated hero, navigation, and section transitions
-- Rich project gallery with modal details and screenshot walkthroughs
-- Skills, experience, education, and achievements sections
+- Selected-work case studies with real screenshots and direct project links
+- Capabilities, experience, education, and achievements sections
 - Contact form backed by a Next.js API route using Nodemailer + Gmail
 - Light/dark theme support
+- Accessible same-page scrolling with a cancellable cubic ease-out curve
 - Social/profile icon assets and project screenshots stored locally
 
 ## Screenshots
@@ -47,8 +48,7 @@ The screenshots below represent the portfolio website itself, not the client pro
 - `app/`: App Router entrypoints, metadata, global styles, and API routes
 - `components/sections/`: top-level portfolio sections
 - `components/features/`: reusable feature-level UI building blocks
-- `components/modals/`: project details and content overlays
-- `data/`: structured content for projects, skills, education, experience, and blog data
+- `data/`: structured content for projects, services, capabilities, education, and experience
 - `lib/`: project-specific helpers and site configuration
 - `public/`: local static assets including screenshots, profile images, and icons
 
@@ -64,7 +64,6 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for full details.
 │   └── page.tsx
 ├── components/
 │   ├── features/
-│   ├── modals/
 │   ├── sections/
 │   └── ui/
 ├── data/
@@ -124,7 +123,7 @@ pnpm dev
 pnpm lint
 pnpm typecheck
 pnpm test
-pnpm ci
+pnpm validate
 ```
 
 ## Testing Commands
@@ -137,7 +136,8 @@ pnpm build
 ```
 
 Current note:
-- `pnpm test` is presently a typecheck gate, not a full unit/integration suite yet.
+- `pnpm test` compiles and runs the focused smooth-scrolling unit suite with Node's built-in test runner.
+- UI integration and API coverage remain future additions.
 
 ## Deployment Instructions
 ### Vercel
@@ -149,7 +149,7 @@ Current note:
 ### Manual Production Build
 ```bash
 pnpm install --frozen-lockfile
-pnpm ci
+pnpm validate
 pnpm start
 ```
 

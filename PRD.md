@@ -37,14 +37,14 @@ Needs clean docs, setup steps, and architectural clarity.
 
 ## User Journeys
 1. Visitor lands on hero and scans personal value proposition
-2. Visitor opens projects and reviews real screenshots in detail modal
-3. Visitor checks skills, experience, and achievements
+2. Visitor reviews selected projects through real screenshots and direct project links
+3. Visitor checks capabilities, experience, and achievements
 4. Visitor uses contact form or external links to reach out
 5. Contributor clones repo and continues work using repo docs
 
 ## Functional Requirements
-- Display hero, projects, skills, experience, education, and contact sections
-- Support project modal with screenshot gallery
+- Display the complete product narrative, selected work, capabilities, experience, education, and contact sections
+- Present selected projects with local screenshots and direct live/source links when available
 - Show accurate project metadata from data files
 - Accept and validate contact form submissions
 - Send email to owner and auto-reply to sender
@@ -62,8 +62,8 @@ Needs clean docs, setup steps, and architectural clarity.
 ### Portfolio Sections
 Static content sections driven by data and reusable section components.
 
-### Project Modal
-Rich modal with screenshot navigation, overview mode, and code/live links.
+### Selected Work
+Editorial case-study cards present project context, technology, impact, screenshots, and available live/source links.
 
 ### Contact Form
 Client-side form posting to `/api/send-email` with server-side validation.
@@ -73,7 +73,7 @@ Local screenshots replace stock images for higher trust and better storytelling.
 
 ## Acceptance Criteria
 - Site loads and builds successfully
-- Project cards open detail modals correctly
+- Same-page navigation uses accessible ease-out scrolling and project links open correctly
 - Contact form validates required fields
 - Documentation enables a new contributor to run the project
 - Environment variables are documented without exposing secrets

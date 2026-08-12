@@ -3,105 +3,149 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================================================
+   Design system — warm-paper editorial light theme, cobalt/violet/teal aurora.
+   Light is the default; dark is a full counterpart, not an afterthought.
+   ========================================================================== */
+
 :root {
-  /* Modern Navy & Cyan Theme */
-  --background: #f0f4f9;
-  --foreground: #0a0f1e;
-  --card: #ffffff;
-  --card-foreground: #0a0f1e;
-  --popover: #ffffff;
-  --popover-foreground: #0a0f1e;
-  
-  /* Electric Cyan Primary */
-  --primary: #00d4ff;
-  --primary-foreground: #0a0f1e;
-  
-  /* Violet Accents */
-  --secondary: #f3f4f6;
-  --secondary-foreground: #0a0f1e;
-  --muted: #e5e7eb;
-  --muted-foreground: #6b7280;
-  --accent: #7c3aed;
+  color-scheme: light;
+
+  /* Surfaces */
+  --paper: #fbfaf8;
+  --paper-raised: #ffffff;
+  --paper-sunken: #f3f1ed;
+
+  /* Ink */
+  --ink: #0b0b0f;
+  --ink-muted: #5b5b66;
+
+  /* Brand triad — drives every gradient, glow and shader */
+  --brand: #1f4bff;
+  --brand-2: #7c3aed;
+  --brand-3: #00b39a;
+
+  /* Glass surfaces */
+  --glass-bg: rgb(255 255 255 / 0.62);
+  --glass-bg-strong: rgb(255 255 255 / 0.82);
+  --glass-border: rgb(11 11 15 / 0.08);
+  --glass-highlight: rgb(255 255 255 / 0.9);
+
+  /* Layered shadows — soft, wide, low-opacity */
+  --shadow-sm: 0 1px 2px rgb(11 11 15 / 0.04), 0 2px 8px rgb(11 11 15 / 0.04);
+  --shadow-md: 0 2px 4px rgb(11 11 15 / 0.03), 0 12px 32px -8px rgb(11 11 15 / 0.1);
+  --shadow-lg: 0 4px 8px rgb(11 11 15 / 0.03), 0 32px 64px -16px rgb(11 11 15 / 0.14);
+  --shadow-glow: 0 20px 60px -24px rgb(31 75 255 / 0.55);
+
+  /* shadcn/ui contract — mapped onto the tokens above */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-raised);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-raised);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--paper-sunken);
+  --secondary-foreground: var(--ink);
+  --muted: #eceae5;
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--brand-2);
   --accent-foreground: #ffffff;
-  
-  /* Destructive */
-  --destructive: #ef4444;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  
-  /* Borders & inputs */
-  --border: #e5e7eb;
-  --input: #f3f4f6;
-  --ring: #00d4ff;
-  
-  /* Charts */
-  --chart-1: #00d4ff;
-  --chart-2: #7c3aed;
-  --chart-3: #0a0f1e;
-  --chart-4: #06b6d4;
-  --chart-5: #8b5cf6;
-  
-  --radius: 0.875rem;
-  
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0a0f1e;
-  --sidebar-primary: #00d4ff;
-  --sidebar-primary-foreground: #0a0f1e;
-  --sidebar-accent: #7c3aed;
+  --border: rgb(11 11 15 / 0.09);
+  --input: rgb(11 11 15 / 0.12);
+  --ring: var(--brand);
+
+  --chart-1: var(--brand);
+  --chart-2: var(--brand-2);
+  --chart-3: var(--brand-3);
+  --chart-4: #f59e0b;
+  --chart-5: #ec4899;
+
+  --radius: 1.25rem;
+
+  --sidebar: var(--paper-raised);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--brand-2);
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #e5e7eb;
-  --sidebar-ring: #00d4ff;
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--brand);
 }
 
 .dark {
-  /* Dark mode - Navy & Cyan */
-  --background: #0a0f1e;
-  --foreground: #f0f4f9;
-  --card: #1a1f2e;
-  --card-foreground: #f0f4f9;
-  --popover: #1a1f2e;
-  --popover-foreground: #f0f4f9;
-  
-  /* Cyan primary in dark mode */
-  --primary: #00d4ff;
-  --primary-foreground: #0a0f1e;
-  
-  /* Dark mode accents */
-  --secondary: #1f2937;
-  --secondary-foreground: #f0f4f9;
-  --muted: #374151;
-  --muted-foreground: #9ca3af;
-  --accent: #a78bfa;
-  --accent-foreground: #0a0f1e;
-  
-  /* Destructive */
+  color-scheme: dark;
+
+  --paper: #07070a;
+  --paper-raised: #101016;
+  --paper-sunken: #0c0c11;
+
+  --ink: #f5f4f1;
+  --ink-muted: #9b9baa;
+
+  --brand: #5b7cff;
+  --brand-2: #a78bfa;
+  --brand-3: #2ee6c8;
+
+  --glass-bg: rgb(255 255 255 / 0.05);
+  --glass-bg-strong: rgb(255 255 255 / 0.08);
+  --glass-border: rgb(255 255 255 / 0.1);
+  --glass-highlight: rgb(255 255 255 / 0.16);
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 2px 4px rgb(0 0 0 / 0.4), 0 12px 32px -8px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.4), 0 32px 64px -16px rgb(0 0 0 / 0.6);
+  --shadow-glow: 0 20px 60px -24px rgb(91 124 255 / 0.6);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper-raised);
+  --card-foreground: var(--ink);
+  --popover: var(--paper-raised);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: #05050a;
+  --secondary: var(--paper-sunken);
+  --secondary-foreground: var(--ink);
+  --muted: #1a1a22;
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--brand-2);
+  --accent-foreground: #05050a;
   --destructive: #f87171;
-  --destructive-foreground: #0a0f1e;
-  
-  /* Borders & inputs */
-  --border: #374151;
-  --input: #1f2937;
-  --ring: #00d4ff;
-  
-  /* Charts - dark mode */
-  --chart-1: #00d4ff;
-  --chart-2: #a78bfa;
-  --chart-3: #f0f4f9;
-  --chart-4: #06b6d4;
-  --chart-5: #c084fc;
-  
-  --sidebar: #1a1f2e;
-  --sidebar-foreground: #f0f4f9;
-  --sidebar-primary: #00d4ff;
-  --sidebar-primary-foreground: #0a0f1e;
-  --sidebar-accent: #a78bfa;
-  --sidebar-accent-foreground: #0a0f1e;
-  --sidebar-border: #374151;
-  --sidebar-ring: #00d4ff;
+  --destructive-foreground: #05050a;
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.14);
+  --ring: var(--brand);
+
+  --chart-1: var(--brand);
+  --chart-2: var(--brand-2);
+  --chart-3: var(--brand-3);
+  --chart-4: #fbbf24;
+  --chart-5: #f472b6;
+
+  --sidebar: var(--paper-raised);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: #05050a;
+  --sidebar-accent: var(--brand-2);
+  --sidebar-accent-foreground: #05050a;
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--brand);
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* Body copy */
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  /* Main headings. Helvetica Neue ships with macOS/iOS; elsewhere this falls
+     back through Helvetica to Arial, which share the same metrics and feel. */
+  --font-heading: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Serif accent for the highlighted phrase inside a heading */
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -121,15 +165,28 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunken: var(--paper-sunken);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+  --color-brand-3: var(--brand-3);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+
+  --radius-sm: calc(var(--radius) - 0.75rem);
+  --radius-md: calc(var(--radius) - 0.5rem);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+  --radius-2xl: calc(var(--radius) + 1rem);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -144,140 +201,335 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    /* Same-page links use the cancellable ease-out controller. Keep native
+       behavior instant so the browser and JavaScript never animate together. */
+    scroll-behavior: auto;
+    /* Sticky nav clearance for anchor jumps */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    /* Montserrat is geometric and wide — it needs more leading than the
+       Tailwind default of 1.5 to stay comfortable in long paragraphs. */
+    line-height: 1.65;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  /* Keep focus visible without the default double ring */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
   }
 }
 
-/* Custom Animations */
-@layer utilities {
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+@layer components {
+  /* --- Glass prism surfaces ------------------------------------------- */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
   }
 
-  @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
   }
 
-  @keyframes slide-down {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Top-edge specular highlight — what sells the "prism" read */
+  .glass-prism {
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
 
-  @keyframes scale-in {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  .glass-prism::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      var(--glass-highlight),
+      transparent 40%,
+      transparent 60%,
+      var(--glass-highlight)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.7;
   }
 
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
+  /* --- Type helpers ---------------------------------------------------- */
+  .eyebrow {
+    @apply font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-ink-muted;
   }
 
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+  /**
+   * Main heading face: Helvetica Neue Bold, set tight and optically negative.
+   * Any <em> inside switches to the Playfair Display serif accent, so headings
+   * only need `.headline` plus an <em> around the phrase being highlighted.
+   */
+  .headline {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
   }
 
-  @keyframes glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
-    }
+  /**
+   * Weight stays 400 here rather than 500: Tailwind utilities sit in a later
+   * cascade layer, so the `font-normal` on these <em>s would win anyway, and
+   * Playfair italic at 400 is the correct editorial weight beside Helvetica Bold.
+   */
+  .headline em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    /* Slight bump so the serif holds its own next to the bold sans. */
+    font-size: 1.04em;
+    letter-spacing: -0.015em;
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
+  .text-gradient {
+    background: linear-gradient(105deg, var(--brand), var(--brand-2) 55%, var(--brand-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  @keyframes pulse-glow {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
+  /* --- Atmospheric background layers ----------------------------------- */
+  .aurora {
+    background:
+      radial-gradient(60% 50% at 20% 10%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 70%),
+      radial-gradient(50% 45% at 85% 20%, color-mix(in oklab, var(--brand-2) 20%, transparent), transparent 70%),
+      radial-gradient(55% 50% at 60% 90%, color-mix(in oklab, var(--brand-3) 16%, transparent), transparent 70%);
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.5s ease-in-out;
+  /* Subtle paper tooth — kills banding on large gradients */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .animate-slide-up {
-    animation: slide-up 0.5s ease-out;
+  .dark .grain::after {
+    opacity: 0.06;
   }
 
-  .animate-slide-down {
-    animation: slide-down 0.5s ease-out;
+  /* Hairline editorial rule */
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
   }
+}
 
-  .animate-scale-in {
-    animation: scale-in 0.3s ease-out;
+/* ==========================================================================
+   Keyframes — declared at top level. Tailwind v4 discards the contents of a
+   hand-written `@layer utilities` block, so nothing here may live inside one.
+   ========================================================================== */
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
-
-  .animate-gradient-shift {
-    animation: gradient-shift 3s ease infinite;
-    background-size: 200% 200%;
+  33% {
+    transform: translate3d(3%, -4%, 0) scale(1.06);
   }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
+  66% {
+    transform: translate3d(-3%, 3%, 0) scale(0.96);
   }
+}
 
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite;
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
   }
-
-  .animate-shimmer {
-    animation: shimmer 2s linear infinite;
-    background-size: 1000px 100%;
+  50% {
+    transform: translate3d(0, -10px, 0);
   }
+}
 
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
   }
+  70% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
-  /* Smooth scrolling */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes shimmer-sweep {
+  from {
+    transform: translate3d(-120%, 0, 0);
+  }
+  to {
+    transform: translate3d(220%, 0, 0);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* ==========================================================================
+   Custom utilities. `@utility` (not `@layer utilities`) is what registers a
+   class with Tailwind v4, which is also what makes variants such as
+   `motion-safe:animate-drift` compose correctly.
+   ========================================================================== */
+
+/* Ring rotates; each chip counter-rotates at the same rate to stay upright. */
+@utility animate-orbit {
+  animation: orbit-spin var(--orbit-duration, 28s) linear infinite;
+  will-change: transform;
+}
+
+@utility animate-orbit-counter {
+  animation: orbit-spin-reverse var(--orbit-duration, 28s) linear infinite;
+  will-change: transform;
+}
+
+@utility animate-drift {
+  animation: drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@utility animate-float-y {
+  animation: float-y 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 3s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+/* Duration is a variable so the same utility drives both the client strip and
+   the slower oversized footer wordmark. */
+@utility animate-marquee {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+@utility animate-shimmer-sweep {
+  animation: shimmer-sweep 2.4s ease-in-out infinite;
+}
+
+/* GPU hint for transform-driven reveal work */
+@utility gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Edge fade for marquees / horizontal scrollers */
+@utility mask-fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/**
+ * Softens a hard bottom crop edge. The hero cutout is a bust photo whose
+ * bottom row is fully opaque, so without this it reads as a cut sticker.
+ * This fades along one axis only — it does not shape the image.
+ * Delete this class from the hero <Image> to get the hard edge back.
+ */
+@utility fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, #000 52%, rgb(0 0 0 / 0.6) 78%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 52%, rgb(0 0 0 / 0.6) 78%, transparent 97%);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Compound selector — cannot be an @utility, so it lives in a layer. */
+@layer components {
+  .pause-on-hover:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — kill ambient loops, keep opacity-only transitions.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

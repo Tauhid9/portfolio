@@ -14,18 +14,21 @@ This is a Next.js App Router portfolio application with a client-heavy presentat
 - `app/page.tsx`
 - `components/sections/*`
 - `components/features/*`
-- `components/modals/*`
 
 ### Content/Data Layer
 - `data/projects.ts`
-- `data/skills.ts`
+- `data/capabilities.ts`
+- `data/services.ts`
+- `data/offerings.ts`
+- `data/pillars.ts`
+- `data/process.ts`
+- `data/faq.ts`
 - `data/experience.ts`
 - `data/education.ts`
-- `data/blog.ts`
 
 ### Utility Layer
 - `lib/site.ts`
-- `lib/project-gallery.ts`
+- `lib/smooth-scroll.ts`
 
 ### Integration Layer
 - `app/api/send-email/route.ts`
@@ -65,11 +68,18 @@ No user roles or access control exist in the current product.
 app/page.tsx
 ├── Navigation
 ├── Hero
-├── Projects
-│   └── ProjectDetailsModal
-├── Skills
-├── Experience
-├── Education
+├── CurrentlyBuilding
+├── Problem
+├── Work
+├── WhyMe
+├── WhatIBuild
+├── Beyond
+├── Services
+├── Stack
+├── Philosophy
+├── Process
+├── About
+├── FAQ
 ├── Contact
 ├── ScrollToTop
 └── FloatingWhatsApp
@@ -82,7 +92,15 @@ app/page.tsx
 ## State Management
 - Local component state only
 - No global state library
-- Project modal and form flows use `useState`
+- Navigation, theme, visibility, and form flows use local React state
+
+## Scrolling and Motion
+- `components/features/smooth-scroll.tsx` progressively enhances same-page hash links
+- `lib/smooth-scroll.ts` owns the tested cubic ease-out, duration, and destination calculations
+- Scroll duration scales from 450 ms to 750 ms based on distance
+- Active animations cancel on direct user input
+- Reduced-motion visitors and the skip-to-content link use immediate scrolling
+- CSS keeps native scrolling instant so it never competes with the JavaScript animation
 
 ## Service Layer
 Minimal service logic exists directly in route handlers and helper modules.
@@ -92,7 +110,7 @@ Not applicable yet because there is no database-backed data access layer.
 
 ## Data Flow
 1. Content modules provide structured data to sections
-2. Sections render cards and interactive UI
+2. Sections render case studies, services, capabilities, experience, and calls to action
 3. User submits contact form
 4. Browser sends JSON request to `/api/send-email`
 5. Route validates payload and triggers email delivery

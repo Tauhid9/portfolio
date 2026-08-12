@@ -1,194 +1,158 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowRight, Download, ChevronDown, Rocket } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { siteConfig } from '@/lib/site'
+import { ArrowRight, ArrowDown } from 'lucide-react'
+import { AuroraField } from '@/components/webgl/aurora-field'
+import { HeroPortrait } from '@/components/sections/hero-portrait'
+import { Magnetic } from '@/components/motion/magnetic'
+import { siteConfig, whatsappUrl } from '@/lib/site'
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
+const EASE = [0.16, 1, 0.3, 1] as const
+
+const container: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
 }
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  },
+const rise: Variants = {
+  hidden: { opacity: 0, y: 26 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
 }
+
+const stackLine = [
+  'Next.js',
+  'React',
+  'TypeScript',
+  'Node.js',
+  'Python',
+  'APIs',
+  'Databases',
+]
 
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion()
+  const reduced = useReducedMotion()
 
   return (
     <section
       id="home"
-      className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 pb-20 pt-24 sm:px-6 lg:px-8"
+      className="grain relative isolate flex min-h-[100svh] w-full flex-col justify-center overflow-hidden px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-28 lg:pt-36"
     >
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-blue-50/30 to-purple-50/20 dark:from-background dark:via-blue-950/20 dark:to-purple-950/10" />
+      {/* Atmospheric background */}
+      <AuroraField className="absolute inset-0 -z-20 h-full w-full" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 bg-gradient-to-t from-paper to-transparent" />
 
-      <motion.div
-        className="absolute top-20 -right-40 -z-10 h-80 w-80 rounded-full bg-cyan-200/20 blur-3xl dark:bg-cyan-900/10"
-        animate={prefersReducedMotion ? undefined : { y: [0, 30, 0] }}
-        transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute -bottom-20 -left-40 -z-10 h-96 w-96 rounded-full bg-violet-200/20 blur-3xl dark:bg-violet-900/10"
-        animate={prefersReducedMotion ? undefined : { y: [0, -30, 0] }}
-        transition={prefersReducedMotion ? undefined : { duration: 10, repeat: Infinity }}
-      />
-
-      <motion.div
-        className="mx-auto w-full max-w-5xl text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div
-          variants={itemVariants}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-300 bg-green-100 px-4 py-2 dark:border-green-700 dark:bg-green-900/30"
-        >
-          <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-          <span className="text-sm font-medium text-green-700 dark:text-green-300">Available for hire</span>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="mb-8 flex flex-col items-center">
-          <div className="relative mb-6">
-            <motion.div
-              className="h-32 w-32 overflow-hidden rounded-full border-4 border-primary animate-glow sm:h-40 sm:w-40"
-              whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
-              transition={prefersReducedMotion ? undefined : { type: 'spring', stiffness: 300 }}
-            >
-              <Image
-                src={siteConfig.profileImage}
-                alt={siteConfig.name}
-                width={160}
-                height={160}
-                sizes="(max-width: 640px) 128px, 160px"
-                className="h-full w-full object-cover"
-                priority
-              />
-            </motion.div>
-            <motion.div
-              className="absolute -bottom-3 -right-3 h-6 w-6 rounded-full border-2 border-white bg-green-500 shadow-lg animate-pulse dark:border-background"
-              animate={prefersReducedMotion ? undefined : { scale: [1, 1.2, 1] }}
-              transition={prefersReducedMotion ? undefined : { duration: 2, repeat: Infinity }}
-            />
-            <div className="absolute -bottom-10 -right-10 whitespace-nowrap rounded-full bg-green-500 px-2 py-1 text-xs font-semibold text-white">
-              Open to Work
-            </div>
-          </div>
-
-          <motion.div variants={itemVariants}>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-primary/75 sm:text-base">
-              {siteConfig.role}
-            </p>
-            <h1 className="mb-4 text-4xl font-bold leading-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-              Tauhid Hasan <br />
-              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                Chowdhury
+      {/* Copy carries the column now that the portrait is smaller. */}
+      <div className="mx-auto grid w-full max-w-[88rem] items-center gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:gap-10">
+        {/* ---------------------------------------------------------- copy */}
+        <motion.div variants={container} initial="hidden" animate="visible" className="order-2 lg:order-1">
+          <motion.div variants={rise} className="mb-7 inline-flex items-center gap-2.5">
+            <span className="glass-prism inline-flex items-center gap-2.5 rounded-full py-2 pl-3 pr-4">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-brand-3 opacity-70 motion-safe:animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-3" />
               </span>
-            </h1>
-            <p className="mx-auto max-w-3xl text-lg font-medium leading-8 text-foreground/75 sm:text-2xl">
-              Building production-ready web applications with Next.js, React, Node.js, Python, and modern backend integrations.
-            </p>
-            <p className="mt-4 text-sm text-foreground/60 sm:text-base">
-              Experience across client platforms, admin systems, financial dashboards, and healthcare workflows.
-            </p>
+              <span className="eyebrow !text-ink">{siteConfig.availability}</span>
+            </span>
+          </motion.div>
+
+          <h1 className="headline text-[clamp(2.6rem,7.2vw,5.6rem)] text-ink">
+            <motion.span variants={rise} className="block">
+              Founders bring
+            </motion.span>
+            <motion.span variants={rise} className="block text-ink-muted">
+              the ambition.
+            </motion.span>
+            <motion.span variants={rise} className="mt-2 block">
+              I build the products that{' '}
+              <em className="text-gradient font-normal italic">live up to it.</em>
+            </motion.span>
+          </h1>
+
+          <motion.p
+            variants={rise}
+            className="mt-8 max-w-xl text-balance text-lg leading-relaxed text-ink-muted sm:text-xl"
+          >
+            From the first product flow to full-scale launch, I turn ambitious ideas and complex
+            business requirements into fast, reliable, production-ready web applications.
+          </motion.p>
+
+          <motion.p variants={rise} className="mt-5 max-w-xl text-sm leading-relaxed text-ink-muted">
+            Frontend. Backend. Data. Integrations. Deployment.{' '}
+            <span className="font-medium text-ink">Built together as one complete product.</span>
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div variants={rise} className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Magnetic>
+              <Link
+                href="#work"
+                className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-4 text-sm font-medium text-paper shadow-[var(--shadow-md)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow)] sm:w-auto"
+              >
+                <span className="absolute inset-0 -z-10 bg-gradient-to-r from-brand via-brand-2 to-brand-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                Explore my work
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+
+            <Magnetic>
+              <Link
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-prism group inline-flex w-full items-center justify-center gap-2.5 rounded-full px-7 py-4 text-sm font-medium text-ink transition-colors duration-300 hover:bg-[var(--glass-bg-strong)] sm:w-auto"
+              >
+                Build with me
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+          </motion.div>
+
+          {/* Stack line */}
+          <motion.div variants={rise} className="mt-12">
+            <p className="eyebrow mb-3">Full-stack product development</p>
+            <ul className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
+              {stackLine.map((tech, index) => (
+                <li key={tech} className="flex items-center gap-2.5">
+                  <span className="text-sm font-medium text-ink/75">{tech}</span>
+                  {index < stackLine.length - 1 && (
+                    <span aria-hidden className="text-ink-muted/40">
+                      ·
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </motion.div>
 
-        <motion.div
-          variants={itemVariants}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2"
-          animate={prefersReducedMotion ? undefined : { y: [0, -8, 0] }}
-          transition={prefersReducedMotion ? undefined : { duration: 3, repeat: Infinity }}
+        {/* ------------------------------------------------------- portrait */}
+        <div className="order-1 lg:order-2">
+          <HeroPortrait />
+        </div>
+      </div>
+
+      {/* Scroll cue */}
+      <motion.div
+        className="mx-auto mt-14 hidden w-full max-w-[88rem] lg:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+      >
+        <Link
+          href="#work"
+          className="group inline-flex items-center gap-3 text-ink-muted transition-colors hover:text-ink"
         >
-          <Rocket className="h-4 w-4 text-primary" />
-          <span className="text-sm font-medium text-primary">Currently building at Loosely Coupled Technologies and THCNext IT Solution</span>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="mx-auto mb-10 max-w-3xl">
-          <p className="text-sm leading-7 text-foreground/70 sm:text-base">
-            Recent work includes client platforms for A. M. &amp; Associates and DUS, alongside product work involving dashboards,
-            reporting systems, patient management, and data-driven operational tools.
-          </p>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="mb-16 flex w-full flex-col justify-center gap-4 sm:flex-row">
-          <Button
-            size="lg"
-            asChild
-            className="group w-full bg-primary font-semibold text-primary-foreground shadow-[0_18px_45px_-24px_rgba(0,212,255,0.85)] hover:bg-primary/90 sm:w-auto"
-          >
-            <Link href="#projects">
-              View Projects
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            asChild
-            className="w-full border-2 hover:bg-accent/10 sm:w-auto"
-          >
-            <Link href="#contact">
-              Get In Touch
-            </Link>
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            asChild
-            className="w-full border-2 hover:bg-accent/10 sm:w-auto"
-          >
-            <Link href="/Tauhid_Hasan_Chowdhury_CV.pdf" download="Tauhid_Hasan_Chowdhury_CV.pdf">
-              <Download className="mr-2 h-5 w-5" />
-              Download CV
-            </Link>
-          </Button>
-        </motion.div>
-
-        <motion.div
-          variants={itemVariants}
-          className="mx-auto mb-16 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6"
-        >
-          {[
-            { value: '2024', label: 'Client Work Started' },
-            { value: '3', label: 'Core Client Platforms' },
-            { value: '2', label: 'Key Client Organizations' },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              className="rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/50"
-              whileHover={prefersReducedMotion ? undefined : { y: -5 }}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
+          <span className="glass-prism grid h-10 w-10 place-items-center rounded-full">
+            <motion.span
+              animate={reduced ? undefined : { y: [0, 4, 0] }}
+              transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <p className="mb-1 text-2xl font-bold text-primary sm:text-3xl">{stat.value}</p>
-              <p className="text-xs text-foreground/60 sm:text-sm">{stat.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <motion.div
-          animate={prefersReducedMotion ? undefined : { y: [0, 10, 0] }}
-          transition={prefersReducedMotion ? undefined : { duration: 2, repeat: Infinity }}
-          className="flex justify-center"
-        >
-          <Link href="#projects" className="text-foreground/50 transition-colors hover:text-foreground">
-            <ChevronDown className="h-8 w-8" />
-          </Link>
-        </motion.div>
+              <ArrowDown className="h-4 w-4" />
+            </motion.span>
+          </span>
+          <span className="eyebrow group-hover:text-ink">Scroll to see the work</span>
+        </Link>
       </motion.div>
     </section>
   )

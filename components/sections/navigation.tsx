@@ -1,140 +1,224 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Menu, X, Github, Linkedin } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
+import { Menu, X, MessageCircle, Download } from 'lucide-react'
 import { ThemeToggle } from '@/components/features/theme-toggle'
-import { ScrollProgressBar } from '@/components/features/scroll-progress-bar'
-import { useActiveSection } from '@/hooks/use-active-section'
-import { siteConfig } from '@/lib/site'
+import { Magnetic } from '@/components/motion/magnetic'
+import { navLinks, siteConfig, whatsappUrl } from '@/lib/site'
 
-const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Contact', href: '#contact' },
-]
+const EASE = [0.16, 1, 0.3, 1] as const
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const activeSection = useActiveSection()
+  const { scrollY } = useScroll()
+  const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState<string>('')
+
+  // Hide on scroll down, reveal on scroll up — but never while the menu is open.
+  useMotionValueEvent(scrollY, 'change', (current) => {
+    const previous = scrollY.getPrevious() ?? 0
+    setScrolled(current > 24)
+    if (open) return
+    setHidden(current > previous && current > 220)
+  })
+
+  // Track which section is in view for the nav indicator.
+  useEffect(() => {
+    const sections = navLinks
+      .map(({ href }) => document.querySelector(href))
+      .filter((el): el is Element => Boolean(el))
+
+    if (!sections.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+        if (visible) setActive(`#${visible.target.id}`)
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5] },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
+  // Lock body scroll behind the mobile sheet.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   return (
     <>
-      <ScrollProgressBar />
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-xl">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex h-14 items-center justify-between sm:h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0 transition-opacity hover:opacity-90">
-              <div className="relative h-10 w-10 overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-[0_12px_30px_-18px_rgba(0,212,255,0.7)] ring-1 ring-white/50">
-                <Image
-                  src={siteConfig.profileImage}
-                  alt={siteConfig.name}
-                  fill
-                  sizes="40px"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="hidden min-w-0 sm:flex sm:flex-col sm:leading-tight">
-                <span className="truncate text-sm font-bold text-foreground lg:text-base">{siteConfig.shortName}</span>
-                <span className="truncate text-[11px] font-medium text-foreground/55 lg:text-xs">Full-Stack Developer</span>
-              </div>
+      <motion.header
+        className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: hidden ? -120 : 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: EASE }}
+      >
+        <nav
+          aria-label="Primary"
+          className={`mx-auto flex max-w-[88rem] items-center justify-between gap-4 rounded-full py-2.5 pl-3 pr-2.5 transition-shadow duration-500 sm:pl-5 sm:pr-3 ${
+            scrolled ? 'glass-prism shadow-[var(--shadow-md)]' : 'glass-prism shadow-none'
+          }`}
+        >
+          {/* Wordmark */}
+          <Link href="#home" className="group flex items-center gap-2.5 rounded-full py-1 pr-2">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand via-brand-2 to-brand-3 text-[0.7rem] font-bold text-white">
+              TH
+            </span>
+            <span className="hidden text-sm font-semibold tracking-tight text-ink sm:block">
+              {siteConfig.shortName}
+            </span>
+          </Link>
+
+          {/* Desktop links */}
+          <ul className="hidden items-center gap-1 lg:flex">
+            {navLinks.map(({ label, href }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    active === href ? 'text-ink' : 'text-ink-muted hover:text-ink'
+                  }`}
+                >
+                  {active === href && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 -z-10 rounded-full bg-ink/[0.06] dark:bg-white/10"
+                      transition={{ duration: 0.35, ease: EASE }}
+                    />
+                  )}
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Link
+              href={siteConfig.cv}
+              download
+              className="hidden items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-ink transition-colors duration-300 hover:border-brand hover:text-brand md:inline-flex"
+            >
+              <Download className="h-4 w-4" />
+              CV
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1)
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`px-3 py-2 text-xs sm:text-sm font-medium transition-all rounded-md ${
-                      isActive
-                        ? 'text-primary bg-primary/10 border-b-2 border-primary'
-                        : 'text-foreground/70 hover:text-foreground hover:bg-primary/5'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                )
-              })}
-            </div>
-
-          {/* Social Links & Mobile Menu */}
-          <div className="flex items-center gap-1 sm:gap-2">
             <ThemeToggle />
-            <div className="hidden md:flex items-center gap-1">
-              <Button variant="ghost" size="icon" className="w-8 h-8 sm:w-10 sm:h-10" asChild>
-                <Link href="https://github.com/Tauhid9" target="_blank" rel="noopener noreferrer" title="GitHub">
-                  <Github className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" className="w-8 h-8 sm:w-10 sm:h-10" asChild>
-                <Link href="https://linkedin.com/in/tauhid26" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                  <Linkedin className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
 
-            {/* Mobile Menu Button */}
+            <Magnetic clamp={8}>
+              <Link
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors duration-300 hover:bg-brand sm:inline-flex"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Start a project
+              </Link>
+            </Magnetic>
+
             <button
-              className="inline-flex items-center justify-center rounded-md p-2 text-foreground transition-colors hover:bg-accent lg:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              aria-expanded={isOpen}
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              className="grid h-10 w-10 place-items-center rounded-full text-ink transition-colors hover:bg-ink/[0.06] lg:hidden dark:hover:bg-white/10"
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
-        </div>
+        </nav>
+      </motion.header>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="border-t border-border/50 bg-background/90 backdrop-blur-md lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1)
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-all ${
-                      isActive
-                        ? 'text-primary bg-primary/10'
-                        : 'text-foreground/80 hover:text-foreground hover:bg-primary/5'
-                    }`}
-                    onClick={() => setIsOpen(false)}
+      {/* Mobile sheet */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-nav"
+            className="fixed inset-0 z-40 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <button
+              type="button"
+              aria-label="Close menu"
+              className="absolute inset-0 bg-ink/20 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+            />
+
+            <motion.div
+              className="glass-strong absolute inset-x-4 top-24 rounded-[2rem] p-6 shadow-[var(--shadow-lg)]"
+              initial={{ opacity: 0, y: -16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              <ul className="flex flex-col">
+                {navLinks.map(({ label, href }, index) => (
+                  <motion.li
+                    key={href}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + index * 0.05, duration: 0.4, ease: EASE }}
                   >
-                    {link.name}
-                  </Link>
-                )
-              })}
-              <div className="pt-2 flex gap-2 px-3">
-                <Button variant="outline" size="sm" asChild>
-                  <Link href="https://github.com/Tauhid9" target="_blank" rel="noopener noreferrer">
-                    <Github className="w-4 h-4 mr-2" />
-                    GitHub
-                  </Link>
-                </Button>
-                <Button variant="outline" size="sm" asChild>
-                  <Link href="https://linkedin.com/in/tauhid26" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="w-4 h-4 mr-2" />
-                    LinkedIn
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
+                    <Link
+                      href={href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between border-b border-border py-4 text-lg font-medium text-ink"
+                    >
+                      {label}
+                      <span className="font-mono text-xs text-ink-muted">
+                        0{index + 1}
+                      </span>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+
+              <Link
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="mt-6 flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-4 text-sm font-medium text-paper"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Start a project
+              </Link>
+
+              <Link
+                href={siteConfig.cv}
+                download
+                onClick={() => setOpen(false)}
+                className="mt-3 flex items-center justify-center gap-2 rounded-full border border-border px-6 py-4 text-sm font-medium text-ink"
+              >
+                <Download className="h-4 w-4" />
+                Download CV
+              </Link>
+            </motion.div>
+          </motion.div>
         )}
-      </div>
-      </nav>
+      </AnimatePresence>
     </>
   )
 }

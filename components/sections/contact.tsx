@@ -1,219 +1,262 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Linkedin, Github, MessageCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Loader2, Check, AlertCircle } from 'lucide-react'
+import { Reveal, RevealGroup, RevealItem } from '@/components/motion/reveal'
+import { Magnetic } from '@/components/motion/magnetic'
+import { AuroraField } from '@/components/webgl/aurora-field'
+import { contact, siteConfig, whatsappUrl } from '@/lib/site'
+
+const availableFor = [
+  'MVP development',
+  'SaaS products',
+  'Full-stack development',
+  'Business applications',
+  'Dashboards',
+  'Internal tools',
+  'Customer portals',
+  'Existing product development',
+]
+
+const channels = [
+  {
+    icon: Mail,
+    label: 'Email',
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+  },
+  {
+    icon: MessageCircle,
+    label: 'WhatsApp',
+    value: contact.phoneDisplay,
+    href: whatsappUrl(),
+    external: true,
+  },
+  {
+    icon: Phone,
+    label: 'Phone',
+    value: contact.phoneDisplay,
+    href: `tel:${contact.phone}`,
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: siteConfig.location,
+  },
+]
+
+const fields = [
+  { id: 'name', label: 'Name', type: 'text', placeholder: 'Your name' },
+  { id: 'email', label: 'Email', type: 'email', placeholder: 'you@company.com' },
+  { id: 'subject', label: 'Subject', type: 'text', placeholder: "What's this about?" },
+] as const
+
+type Status = 'idle' | 'loading' | 'success' | 'error'
+
+const emptyForm = { name: '', email: '', subject: '', message: '' }
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [isLoading, setIsLoading] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [formData, setFormData] = useState(emptyForm)
+  const [status, setStatus] = useState<Status>('idle')
   const [statusMessage, setStatusMessage] = useState('')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = event.target
+    setFormData((previous) => ({ ...previous, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setSubmitStatus('idle')
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setStatus('loading')
 
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-
       const data = await response.json()
 
       if (response.ok) {
-        setSubmitStatus('success')
-        setStatusMessage("Message sent successfully! I'll reply within 24 hours. Check your email for confirmation.")
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        })
+        setStatus('success')
+        setStatusMessage("Message sent. I'll reply within 24 hours — check your inbox for a confirmation.")
+        setFormData(emptyForm)
       } else {
-        setSubmitStatus('error')
-        setStatusMessage(data.error || 'Failed to send message. Please try again.')
+        setStatus('error')
+        setStatusMessage(data.error || 'Failed to send. Please try again, or reach me on WhatsApp.')
       }
-    } catch (error) {
-      console.error('[v0] Form submission error:', error)
-      setSubmitStatus('error')
-      setStatusMessage('An error occurred. Please try again later.')
-    } finally {
-      setIsLoading(false)
+    } catch {
+      setStatus('error')
+      setStatusMessage('Something went wrong. Please try WhatsApp or email me directly.')
     }
   }
 
+  const inputClass =
+    'w-full rounded-2xl border border-border bg-paper px-5 py-3.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted/50 focus:border-brand'
+
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">Let&apos;s Work Together</h2>
-          <p className="text-base sm:text-lg text-foreground/60 max-w-3xl mx-auto">
-            Reach out for full-stack development work, client projects, or collaboration on production web applications.
-          </p>
-        </motion.div>
+    <section
+      id="contact"
+      className="grain relative isolate overflow-hidden px-5 py-24 sm:px-8 sm:py-32 lg:px-12 lg:py-40"
+    >
+      <AuroraField className="absolute inset-0 -z-20 h-full w-full" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-paper to-transparent" />
 
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <div className="space-y-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Direct Contact</p>
-              <h3 className="mt-3 mb-4 text-2xl font-bold text-foreground">Available for product work, dashboards, and business web applications</h3>
-              <p className="max-w-xl text-sm leading-7 text-foreground/65 sm:text-base">
-                If you&apos;re hiring, collaborating, or looking for help building a modern web platform, the fastest way to reach me is by email or WhatsApp.
-              </p>
+      <div className="mx-auto w-full max-w-[88rem]">
+        {/* ------------------------------------------------------ final CTA */}
+        <div className="max-w-4xl">
+          <Reveal>
+            <p className="eyebrow">14 — Have a product worth building?</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="headline mt-5 text-[clamp(2.4rem,6vw,5rem)] text-ink">
+              Don&apos;t just launch it.{' '}
+              <em className="text-gradient font-normal italic">Build it to perform.</em>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-muted">
+              Maybe you&apos;re starting with an idea. Maybe you already have the designs. Maybe your
+              current application isn&apos;t working the way you need — or you&apos;ve outgrown
+              spreadsheets and manual workflows and need something purpose-built. Wherever
+              you&apos;re starting, let&apos;s turn it into working software.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.18}>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Magnetic>
+                <Link
+                  href={whatsappUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-4 text-sm font-medium text-paper shadow-[var(--shadow-md)] transition-shadow duration-300 hover:shadow-[var(--shadow-glow)] sm:w-auto"
+                >
+                  <span className="absolute inset-0 -z-10 bg-gradient-to-r from-brand via-brand-2 to-brand-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <MessageCircle className="h-4 w-4" />
+                  Start a project on WhatsApp
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link
+                  href="#contact-form"
+                  className="glass-prism group inline-flex w-full items-center justify-center gap-2.5 rounded-full px-7 py-4 text-sm font-medium text-ink transition-colors duration-300 hover:bg-[var(--glass-bg-strong)] sm:w-auto"
+                >
+                  Send a message
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </Magnetic>
             </div>
+          </Reveal>
+        </div>
 
-            {[
-              { icon: Mail, label: 'Email', value: 'tauhidhasan2017bd@gmail.com', href: 'mailto:tauhidhasan2017bd@gmail.com', color: 'from-primary/30 to-primary/10' },
-              { icon: MessageCircle, label: 'WhatsApp', value: '+88 01518972645', href: 'https://wa.me/8801518972645', color: 'from-green-500/30 to-green-500/10' },
-              { icon: Phone, label: 'Phone', value: '+88 01518972645', href: 'tel:+8801518972645', color: 'from-cyan-500/30 to-cyan-500/10' },
-              { icon: MapPin, label: 'Location', value: 'Dhaka, Bangladesh', href: '#', color: 'from-violet-500/30 to-violet-500/10' },
-            ].map((item) => (
-              <motion.div
-                key={item.label}
-                className="flex gap-4 group"
-                whileHover={{ x: 8 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center group-hover:shadow-lg transition-all`}>
-                  <item.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-sm sm:text-base font-medium text-foreground">{item.label}</h4>
-                  {item.href === '#' ? (
-                    <p className="text-sm text-foreground/70">{item.value}</p>
-                  ) : (
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="break-all text-sm text-foreground/70 transition-colors hover:text-primary"
-                    >
-                      {item.value}
-                    </a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-
-            <div className="pt-6">
-              <h4 className="text-base sm:text-lg font-medium text-foreground mb-4">Professional Links</h4>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { icon: Github, label: 'GitHub', href: 'https://github.com/Tauhid9' },
-                  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/tauhid26' },
-                ].map((social) => (
-                  <motion.div key={social.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="sm" variant="outline" asChild className="border-primary/30 hover:bg-primary/10">
-                      <Link href={social.href} target="_blank" rel="noopener noreferrer">
-                        <social.icon className="w-4 h-4 mr-2" />
-                        {social.label}
-                      </Link>
-                    </Button>
-                  </motion.div>
-                ))}
+        {/* --------------------------------------------- channels + the form */}
+        <div className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <div>
+            <Reveal>
+              <div className="glass-prism inline-flex items-center gap-2.5 rounded-full py-2 pl-3 pr-4">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-brand-3 opacity-70 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-3" />
+                </span>
+                <span className="eyebrow !text-ink">{siteConfig.availability}</span>
               </div>
-            </div>
+            </Reveal>
+
+            <RevealGroup className="mt-10 grid gap-px overflow-hidden rounded-[1.75rem] border border-border bg-border sm:grid-cols-2">
+              {channels.map((channel) => {
+                const Icon = channel.icon
+                const body = (
+                  <>
+                    <Icon className="h-4 w-4 text-brand" strokeWidth={1.75} />
+                    <span className="mt-4 block text-xs font-medium uppercase tracking-wider text-ink-muted">
+                      {channel.label}
+                    </span>
+                    <span className="mt-1.5 block break-words text-sm font-medium text-ink">
+                      {channel.value}
+                    </span>
+                  </>
+                )
+
+                return (
+                  <RevealItem key={channel.label} className="bg-paper">
+                    {channel.href ? (
+                      <Link
+                        href={channel.href}
+                        target={channel.external ? '_blank' : undefined}
+                        rel={channel.external ? 'noopener noreferrer' : undefined}
+                        className="block h-full p-6 transition-colors hover:bg-paper-raised"
+                      >
+                        {body}
+                      </Link>
+                    ) : (
+                      <div className="h-full p-6">{body}</div>
+                    )}
+                  </RevealItem>
+                )
+              })}
+            </RevealGroup>
+
+            <Reveal delay={0.1}>
+              <div className="mt-10">
+                <p className="eyebrow">Available for</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {availableFor.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full border border-border bg-paper px-3.5 py-1.5 text-xs text-ink-muted"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="rounded-xl border border-border bg-card p-8 transition-all hover:border-primary/50">
-              <div className="mb-6 inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                Response usually within 24 hours
-              </div>
-              <h3 className="mb-2 text-2xl font-bold text-foreground">Send a message</h3>
-              <p className="mb-6 text-sm leading-7 text-foreground/65">
-                Share a project brief, role details, or collaboration idea and I&apos;ll get back to you with the next step.
+          {/* Form */}
+          <Reveal direction="right" delay={0.08}>
+            <div id="contact-form" className="glass-prism rounded-[2rem] p-8 sm:p-10">
+              <p className="eyebrow">{siteConfig.responseTime}</p>
+              <h3 className="headline mt-4 text-[clamp(1.6rem,2.6vw,2.2rem)] text-ink">
+                Tell me what you&apos;re building
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                You don&apos;t need a perfect brief — what it is, who uses it, and what problem it
+                solves is enough to start.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <motion.div whileHover={{ x: 2 }}>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 rounded-lg border border-border bg-input text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                    placeholder="Your name"
-                  />
-                </motion.div>
+              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                {fields.map((field) => (
+                  <div key={field.id}>
+                    <label
+                      htmlFor={field.id}
+                      className="mb-2 block text-xs font-medium uppercase tracking-wider text-ink-muted"
+                    >
+                      {field.label}
+                    </label>
+                    <input
+                      id={field.id}
+                      name={field.id}
+                      type={field.type}
+                      value={formData[field.id]}
+                      onChange={handleChange}
+                      required
+                      placeholder={field.placeholder}
+                      className={inputClass}
+                    />
+                  </div>
+                ))}
 
-                <motion.div whileHover={{ x: 2 }}>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 rounded-lg border border-border bg-input text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                    placeholder="your@email.com"
-                  />
-                </motion.div>
-
-                <motion.div whileHover={{ x: 2 }}>
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 rounded-lg border border-border bg-input text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                    placeholder="What's this about?"
-                  />
-                </motion.div>
-
-                <motion.div whileHover={{ x: 2 }}>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-ink-muted"
+                  >
                     Message
                   </label>
                   <textarea
@@ -222,45 +265,54 @@ export function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={4}
-                    className="w-full px-4 py-2.5 rounded-lg border border-border bg-input text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary resize-none transition-all"
-                    placeholder="Your message..."
+                    rows={5}
+                    placeholder="What are you building, who will use it, and what should it solve?"
+                    className={`${inputClass} resize-none`}
                   />
-                </motion.div>
+                </div>
 
-                {submitStatus === 'success' && (
-                  <motion.div
-                    className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-green-700 dark:text-green-400"
-                    initial={{ opacity: 0, y: -10 }}
+                {(status === 'success' || status === 'error') && (
+                  <motion.p
+                    role="status"
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
+                    className={`flex items-start gap-2.5 rounded-2xl border px-5 py-4 text-sm ${
+                      status === 'success'
+                        ? 'border-brand-3/30 bg-brand-3/10 text-ink'
+                        : 'border-destructive/30 bg-destructive/10 text-ink'
+                    }`}
                   >
+                    {status === 'success' ? (
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-3" strokeWidth={2.5} />
+                    ) : (
+                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                    )}
                     {statusMessage}
-                  </motion.div>
+                  </motion.p>
                 )}
 
-                {submitStatus === 'error' && (
-                  <motion.div
-                    className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {statusMessage}
-                  </motion.div>
-                )}
-
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? 'Sending...' : 'Send Message'}
-                  </Button>
-                </motion.div>
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="group relative mt-2 inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-4 text-sm font-medium text-paper transition-shadow duration-300 hover:shadow-[var(--shadow-glow)] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  <span className="absolute inset-0 -z-10 bg-gradient-to-r from-brand via-brand-2 to-brand-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  {status === 'loading' ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending
+                    </>
+                  ) : (
+                    <>
+                      Send message
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </>
+                  )}
+                </button>
               </form>
             </div>
-          </motion.div>
-        </motion.div>
+          </Reveal>
+        </div>
       </div>
     </section>
   )

@@ -2,68 +2,59 @@
 
 import { useEffect, useState } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { AnimatePresence, motion } from 'framer-motion'
 
+type Theme = 'light' | 'dark'
+
+/**
+ * Light is the designed default, so we only read an explicit stored choice —
+ * system dark preference alone does not flip the site.
+ */
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
-  // Get initial theme from localStorage or system preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
-    
-    let initialTheme: 'light' | 'dark' = 'light'
-    
-    if (savedTheme) {
-      initialTheme = savedTheme
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      initialTheme = 'dark'
-    }
-    
-    setTheme(initialTheme)
-    applyTheme(initialTheme)
+    const stored = localStorage.getItem('theme') as Theme | null
+    setTheme(stored === 'dark' ? 'dark' : 'light')
     setMounted(true)
   }, [])
 
-  const applyTheme = (newTheme: 'light' | 'dark') => {
-    const html = document.documentElement
-    
-    if (newTheme === 'dark') {
-      html.classList.add('dark')
-    } else {
-      html.classList.remove('dark')
-    }
-    
-    localStorage.setItem('theme', newTheme)
-  }
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
-    applyTheme(newTheme)
-  }
-
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon" className="w-8 h-8 sm:w-10 sm:h-10" disabled>
-        <Sun className="w-4 h-4" />
-      </Button>
-    )
+  const toggle = () => {
+    const next: Theme = theme === 'light' ? 'dark' : 'light'
+    setTheme(next)
+    document.documentElement.classList.toggle('dark', next === 'dark')
+    localStorage.setItem('theme', next)
   }
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={toggleTheme}
-      className="w-8 h-8 sm:w-10 sm:h-10 hover:bg-primary/10 transition-colors"
-      title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+      className="grid h-10 w-10 place-items-center overflow-hidden rounded-full text-ink transition-colors hover:bg-ink/[0.06] dark:hover:bg-white/10"
     >
-      {theme === 'light' ? (
-        <Moon className="w-4 h-4 text-foreground" />
+      {/* Render a stable icon until hydrated so SSR and client markup agree. */}
+      {!mounted ? (
+        <Sun className="h-[1.05rem] w-[1.05rem] opacity-40" />
       ) : (
-        <Sun className="w-4 h-4 text-foreground" />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={theme}
+            initial={{ y: 14, opacity: 0, rotate: -35 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: -14, opacity: 0, rotate: 35 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="grid place-items-center"
+          >
+            {theme === 'light' ? (
+              <Moon className="h-[1.05rem] w-[1.05rem]" />
+            ) : (
+              <Sun className="h-[1.05rem] w-[1.05rem]" />
+            )}
+          </motion.span>
+        </AnimatePresence>
       )}
-    </Button>
+    </button>
   )
 }

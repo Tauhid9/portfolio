@@ -1,26 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 
+/**
+ * Driven by a motion value rather than React state, so scrolling never triggers
+ * a re-render.
+ */
 export function ScrollProgressBar() {
-  const [scrollProgress, setScrollProgress] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-      const scrollTop = window.scrollY
-      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0
-      setScrollProgress(progress)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 })
 
   return (
-    <div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary transition-all duration-300 z-50"
-      style={{ width: `${scrollProgress}%` }}
+    <motion.div
+      aria-hidden
+      style={{ scaleX }}
+      className="fixed inset-x-0 top-0 z-[55] h-[2px] origin-left bg-gradient-to-r from-brand via-brand-2 to-brand-3"
     />
   )
 }

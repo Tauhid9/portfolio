@@ -127,7 +127,7 @@ No database is present. Do not invent a database layer unless a feature clearly 
 - Validation commands listed
 
 ## Deployment Workflow
-- Validate locally with `pnpm ci`
+- Validate locally with `pnpm validate`
 - Push to default branch or deployment branch
 - Deploy via Vercel
 - Verify contact form environment variables

@@ -1,0 +1,4 @@
+allowBuilds:
+  # sharp powers Next.js image optimization (WebP/AVIF + srcset generation).
+  sharp: true
+  unrs-resolver: true

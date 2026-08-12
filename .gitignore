@@ -11,6 +11,7 @@ next.user-config.*
 out/
 dist/
 coverage/
+.test-dist/
 tsconfig.tsbuildinfo
 
 # Dependency directories
