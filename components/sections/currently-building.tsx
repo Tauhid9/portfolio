@@ -3,7 +3,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/motion/reveal'
 
 const clients = [
   'Loosely Coupled Technologies',
-  'THCNext IT Solution',
+  'THCNex IT Solution',
   'Suzuki Bangladesh',
   'Dristy Unnayan Sangstha',
   'A. M. & Associates',

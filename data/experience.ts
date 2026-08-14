@@ -27,13 +27,13 @@ export const experienceData: Experience[] = [
   },
   {
     id: "2",
-    company: "THCNext IT Solution",
+    company: "THCNex IT Solution",
     position: "Founder & Software Engineer",
     startDate: "2024",
     endDate: "Present",
     description: "Leading client-facing full-stack delivery for business websites, dashboards, and operational web applications.",
     achievements: [
-      "Founded THCNext IT Solution in 2024 to deliver full-stack web products for local clients.",
+      "Founded THCNex IT Solution in 2024 to deliver full-stack web products for local clients.",
       "Built the DUS patient management system with Firebase and Cloudinary-based record workflows.",
       "Developed the DUS financial dashboard and reporting application for operational finance tracking.",
       "Delivered the A. M. & Associates architecture studio website with project archive, process pages, and contact flow.",
