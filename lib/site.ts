@@ -12,9 +12,9 @@ export const siteConfig = {
    * Transparent cutout for the WebGL hero — trimmed and downscaled from the
    * 3024px original to 900px. Rendered unmasked; the alpha channel is the shape.
    */
-  heroImage: '/profile/towhid-vai.webp',
+  heroImage: '/profile/tauhid-hasan-portrait-2026.png',
   /** Square headshot, used only for OG/Twitter cards and schema.org. */
-  profileImage: '/profile/tauhid-hasan-chowdhury.jpg',
+  profileImage: '/profile/tauhid-hasan-portrait-2026.png',
   cv: '/Tauhid_Hasan_Chowdhury_CV.pdf',
 
   icon32: '/profile/tauhid-icon-32.png',
