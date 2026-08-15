@@ -41,7 +41,7 @@ export function HeroPortrait() {
           alt={`${siteConfig.name}, ${siteConfig.role}`}
           fill
           sizes="(max-width: 640px) 19rem, (max-width: 1024px) 24rem, 31rem"
-          className="fade-bottom object-contain object-bottom drop-shadow-[0_24px_44px_rgba(11,11,15,0.20)] dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.55)]"
+          className="fade-bottom object-contain object-bottom mix-blend-multiply drop-shadow-[0_24px_44px_rgba(11,11,15,0.16)] dark:mix-blend-normal dark:drop-shadow-[0_24px_44px_rgba(0,0,0,0.55)]"
           priority
         />
       </motion.div>
